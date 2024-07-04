@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 import { User } from "@/types"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useEffect } from "react"
-import { useForm, useFormContext } from "react-hook-form"
+import { useForm } from "react-hook-form"
 
 import {z} from 'zod'
 
@@ -26,7 +26,7 @@ type Props = {
     buttonText?: string; 
 }
 
-const UserProfileForm = ({ onSave, isLoading, currentUser, title, buttonText }: Props) => {
+const UserProfileForm = ({ onSave, isLoading, currentUser, buttonText }: Props) => {
 
     const form = useForm<UserFormData>({
         resolver: zodResolver(formSchema),
@@ -71,7 +71,7 @@ const UserProfileForm = ({ onSave, isLoading, currentUser, title, buttonText }: 
                         </FormItem>
                 )}
                 />
-                {isLoading ? <LoadingButton /> : <Button>Submit</Button>}
+                {isLoading ? <LoadingButton /> : <Button>{buttonText ? buttonText : 'Submit'}</Button>}
             </form>
         </Form>
         

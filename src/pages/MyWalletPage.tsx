@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import { Banknote, CreditCard, HandCoins, Handshake, Landmark, QrCode, Smartphone, Wallet, Wallet2 } from "lucide-react";
+import { Banknote, CreditCard, HandCoins, Handshake, Landmark, QrCode, Smartphone, Wallet } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableFooter, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useGetMyUser } from "@/api/MyUserApi";
 
 const MyWalletPage = () => {

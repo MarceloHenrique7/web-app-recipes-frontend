@@ -1,5 +1,5 @@
 import { Recipe } from "@/types"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import { AspectRatio } from "./ui/aspect-ratio";
 import { Dot, Pencil, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";

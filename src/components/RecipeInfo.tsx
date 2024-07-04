@@ -1,9 +1,7 @@
 import { Recipe } from "@/types"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
 import { Dot } from "lucide-react"
-import { useAuth0 } from "@auth0/auth0-react"
 import { Clock } from "lucide-react"
-import { useGetMyUser } from "@/api/MyUserApi"
 
 type Props = {
     recipe: Recipe

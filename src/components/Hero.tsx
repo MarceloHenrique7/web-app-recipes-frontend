@@ -1,14 +1,9 @@
 
-import React from 'react';
 import hero1 from '../assets/hero-0.png'
-import hero2 from '../assets/hero-1.jpg'
 import person from '../assets/person.png'
 import Autoplay from "embla-carousel-autoplay"
 
-import { AspectRatio } from './ui/aspect-ratio';
-
-import { Card, CardContent } from './ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
+import { Carousel, CarouselContent, CarouselItem } from './ui/carousel';
 
 const Hero = () => {
 

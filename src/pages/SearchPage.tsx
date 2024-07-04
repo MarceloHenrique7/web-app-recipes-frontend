@@ -2,7 +2,7 @@ import { useSearchRecipes } from "@/api/RecipeApi";
 import CategoryFilter from "@/components/CategoryFilter";
 import SearchResultsInfo from "@/components/SearchResultsInfo";
 import SearchBar, { SearchForm } from "@/components/SearchBar";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DropDownOption from "@/components/DropDownOption";
 import CardResultSearch from "@/components/CardResultSearch";
