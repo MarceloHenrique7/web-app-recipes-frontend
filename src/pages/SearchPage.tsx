@@ -1,0 +1,96 @@
+import { useSearchRecipes } from "@/api/RecipeApi";
+import CategoryFilter from "@/components/CategoryFilter";
+import SearchResultsInfo from "@/components/SearchResultsInfo";
+import SearchBar, { SearchForm } from "@/components/SearchBar";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import DropDownOption from "@/components/DropDownOption";
+import CardResultSearch from "@/components/CardResultSearch";
+import { CircularProgress } from "@mui/material";
+
+
+export type SearchState = {
+  searchQuery: string;
+  page: number;
+  selectedCategories: string[];
+  sortOption: string;
+}
+
+
+const SearchPage = () => {
+
+  const navigate = useNavigate()
+  
+  const [searchState, setSearchState] = useState<SearchState>({
+    searchQuery: "",
+    page: 1,
+    selectedCategories: [],
+    sortOption: "lastUpdate"
+  })
+
+  let { recipe } = useParams()
+
+  const { results, isLoading } = useSearchRecipes(searchState, recipe);
+
+  const [isExpanded, setIsExpanded] = useState<boolean>(false)
+
+  const setSortOption = (sortOption: string) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      sortOption,
+      page: 1
+    }))
+  }
+  
+  const setSelectedCategories = (selectedCategories: string[]) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      selectedCategories,
+      page: 1
+    }))
+  } 
+
+  const handleSearchSubmit = (searchForm: SearchForm) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      searchQuery: searchForm.searchQuery,
+      page: 1
+    }))
+    navigate({
+      pathname: `/search/recipe/${searchForm.searchQuery}`
+    })
+  }
+
+
+  if (isLoading) {
+    return <span className="flex items-center justify-center"><CircularProgress variant="indeterminate"/></span>
+  }
+
+  return (
+    <div className="grid grid-col-1 lg:grid-cols-[250px_1fr] gap-5">
+        <div>
+            <CategoryFilter onChange={setSelectedCategories} isExpanded={isExpanded} selectedCategories={searchState.selectedCategories} onExpandedClick={() => setIsExpanded((prevExpanded) => !prevExpanded)}/>
+        </div>
+        <div id="main-content" className="flex flex-col gap-5">
+            <SearchBar searchQuery={searchState.searchQuery} onSubmit={handleSearchSubmit} placeHolder="Search for a recipe" />
+            <div className="flex flex-row justify-between">
+              <SearchResultsInfo total={results?.pagination.total || 0} recipe={recipe}/>
+              <DropDownOption sortOption={searchState.sortOption} onChange={(value) => setSortOption(value)}/>
+            </div>
+            {
+              results?.data?.length === 0 ? (
+                <span>No Results</span>
+              ) : (
+                results?.data.map((recipe) => (
+                  <CardResultSearch recipe={recipe}/>
+                ))
+              )
+            }
+
+            
+        </div>
+    </div>
+  )
+}
+
+export default SearchPage
