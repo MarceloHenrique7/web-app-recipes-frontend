@@ -11,18 +11,24 @@ import { Label } from "./ui/label";
 type Props = {
     recipe: Recipe
     isHomePage: boolean;
+    isForSale: boolean;
 }
 
 
-const CardMyRecipes = ({recipe, isHomePage}: Props) => {
+const CardMyRecipes = ({recipe, isHomePage, isForSale}: Props) => {
   return (
     <Card key={recipe.id} className="h-full w-full flex flex-col justify-between">
         <AspectRatio ratio={16/6}>
           <img src={recipe.imageUrl} className="rounded w-full h-full object-cover"/>
         </AspectRatio>
       <CardHeader>
-        <CardTitle className="font-bold text-2xl">
-            {recipe.name}
+        <CardTitle className="font-bold flex flex-wrap justify-between text-2xl">
+            <h1>{recipe.name}</h1>
+            <span>
+              {isForSale && (
+                `$ ${recipe.price.toFixed(2).replace('.', ',')}`
+              )}
+            </span>
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-5">

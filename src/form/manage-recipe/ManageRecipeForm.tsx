@@ -13,6 +13,8 @@ import { Button } from '@/components/ui/button';
 import LoadingButton from '@/components/LoadingButton';
 import { useEffect } from 'react';
 import { Recipe } from '@/types';
+import SalesSetupSection from './SalesSetupSection';
+import PrivacyRecipeSection from './PrivacyRecipeSection';
 
 
 export const formSchema = z.object({
@@ -49,6 +51,10 @@ export const formSchema = z.object({
         subtitle: z.string().min(1, "subtitle of instruction is required"),
         description: z.string().min(1, "description of instruction is required"),
     })),
+    isPublic: z.boolean(),
+    forSale:  z.boolean(),
+    price: z.coerce.number().min(1, "price is required"),
+
 
     imageUrl: z.string().optional(),
      
@@ -80,7 +86,8 @@ const ManageRecipeForm = ({ onSave, isLoading, recipe, btnText }: Props) => {
             categories: [],
             nutrients: [{calories: 0, protein: 0, fat: 0, carbohydrate: 0}],
             ingredients: [{name: "", quantity: 0, unit: "g"}],
-            instructions: [{title: "", description: "", subtitle: ""}]
+            instructions: [{title: "", description: "", subtitle: ""}],
+            price: 0.00
         }
     })
 
@@ -103,6 +110,11 @@ const ManageRecipeForm = ({ onSave, isLoading, recipe, btnText }: Props) => {
         formData.append("prepTime", formDataJson.prepTime.toString())
         formData.append("cookTime", formDataJson.cookTime.toString())
         formData.append("serving", formDataJson.serving.toString())
+
+        formData.append("isPublic", formDataJson.isPublic.toString())
+        formData.append("forSale", formDataJson.forSale.toString())
+        formData.append("price", formDataJson.price.toString())
+
         formDataJson.categories.forEach((category, index) => {
             formData.append(`categories[${index}]`, category)
         })
@@ -145,8 +157,11 @@ const ManageRecipeForm = ({ onSave, isLoading, recipe, btnText }: Props) => {
                 <NutrientsSection />
                 <Separator />
                 <ImageSection />
-
-                {isLoading ? <LoadingButton /> : <Button type="submit">{btnText}</Button>}
+                <Separator />
+                <SalesSetupSection />
+                <Separator />
+                <PrivacyRecipeSection />
+                {isLoading ? <LoadingButton /> : <Button className='bg-emerald-900' type="submit">{btnText}</Button>}
             </form>
         </Form>
     )

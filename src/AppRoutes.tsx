@@ -11,6 +11,8 @@ import RecipeUpdatePage from './pages/RecipeUpdatePage'
 import ProtectedRoute from './auth/ProtectedRoute'
 import SearchPage from './pages/SearchPage'
 import MyWalletPage from './pages/MyWalletPage'
+import CheckoutWalletPage from './pages/CheckoutWalletPage'
+import TransactionStatusPage from './pages/TransactionStatusPage'
 
 const AppRoutes = () => {
   return (
@@ -44,6 +46,16 @@ const AppRoutes = () => {
             <Route path='/my-wallet' element={
                 <Layout showHero={false}>
                     <MyWalletPage />
+                </Layout>
+            }/>
+            <Route path='/checkout/wallet/:recipeId' element={
+                <Layout showHero={false}>
+                    <CheckoutWalletPage />
+                </Layout>
+            }/>
+            <Route path='/transaction-status' element={
+                <Layout showHero={false}>
+                    <TransactionStatusPage />
                 </Layout>
             }/>
         </Route>

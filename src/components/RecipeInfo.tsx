@@ -1,23 +1,64 @@
-import { Recipe } from "@/types"
+import { Recipe, TransactionType } from "@/types"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
-import { Dot } from "lucide-react"
-import { Clock } from "lucide-react"
+import {  ArrowRight, Dot, ShoppingCart, Star } from "lucide-react"
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
+import { useCreateCheckoutSession } from "@/api/MyTransactionApi";
+import { useGetMyUser } from "@/api/MyUserApi";
 
 type Props = {
-    recipe: Recipe
+    recipe: Recipe;
+    isForSale: boolean;
 }
 
-const RecipeInfo = ({ recipe }: Props) => {
+const RecipeInfo = ({ recipe, isForSale }: Props) => {
+
+    const { createCheckoutSession, isLoading: isLoadingCheckout } = useCreateCheckoutSession()
+
+    const { currentUser, isLoading: isLoadingUser } = useGetMyUser()
+
+    if (!currentUser) {
+        return "Unable to get user"
+    }
+
+    if (isLoadingUser) {
+        return "Loading..."
+    }
 
     if(!recipe) {
         return "Unable to get recipe"
     }
 
+
+    const onCheckout = async () => {
+
+        const checkoutData = {
+            transactionType: TransactionType.PURCHASE,
+            currency: "usd",
+            method: "card",
+            amount: recipe.price,
+            userId: currentUser._id,
+            recipeId: recipe.id,
+        }
+
+
+        const data = await createCheckoutSession(checkoutData)
+
+        window.location.href = await data.url
+    }
+
+
   return (
     <Card>
         <CardHeader>
-            <CardTitle className="font-bold text-4xl">
-                {recipe.name}
+            <CardTitle className="font-bold flex flex-wrap justify-between text-4xl">
+            <h1>{recipe.name}</h1>
+            <span>
+              {isForSale && (
+                `$ ${recipe.price.toFixed(2).replace('.', ',')}`
+              )}
+            </span>
             </CardTitle>
             <CardDescription>
                 {recipe.description}
@@ -78,11 +119,27 @@ const RecipeInfo = ({ recipe }: Props) => {
             </div>
             <CardFooter className="gap-2 mt-20">  
                 <span className=" flex flex-wrap gap-2">
-                    <span className="flex gap-2 italic"><Clock /> Created to by </span>
-                    <span className="font-bold">user</span>
+                    <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white font-bold hover:bg-emerald-900"><Star/>Save</span>
+                    <Dialog>
+                        <DialogTrigger>
+                            <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white font-bold hover:bg-emerald-900"><ShoppingCart />Buy this Recipe</span>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-[350px] rounded-md">
+                            <DialogTitle className="font-bold text-2xl mb-8">
+                                Choose the form of payment
+                            </DialogTitle>
+                            <DialogDescription className="flex flex-col gap-2">
+                                <Link className="font-bold flex justify-between items-center bg-emerald-900 p-2 rounded-lg text-white" to={`/checkout/wallet/${recipe.id}`}>
+                                    <span>Continue with Wallet</span> <span><ArrowRight /></span>
+                                </Link>
+                                <Button onClick={onCheckout} className="font-bold flex justify-between items-center bg-emerald-900 hover:bg-emerald-900 p-2 rounded-lg text-white" >
+                                    <span>Continue with Credit Card</span> <span><ArrowRight /></span>
+                                </Button>
+                            </DialogDescription>
+                        </DialogContent>
+                    </Dialog>
                 </span>
             </CardFooter>
-        
         </CardContent>
     </Card>
   )

@@ -4,19 +4,25 @@ import { Banknote, CreditCard, HandCoins, Handshake, Landmark, QrCode, Smartphon
 import { Link } from "react-router-dom";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useGetMyUser } from "@/api/MyUserApi";
+import { useGetMyTransaction } from "@/api/MyTransactionApi";
+import { format } from "date-fns"
 
 const MyWalletPage = () => {
 
+    const { transactions, isLoading: transactionIsLoading } = useGetMyTransaction()
     const { currentUser, isLoading } = useGetMyUser()
 
-    if (isLoading) {
+
+    if (isLoading || transactionIsLoading) {
         return "Loading...."
     }
 
-    if (!currentUser) {
+    if (!currentUser || !transactions) {
         return "User not found"
     }
 
+
+    console.log(transactions)
 
     return (
         <Card className=" flex flex-col gap-2">
@@ -32,7 +38,7 @@ const MyWalletPage = () => {
                                     <Wallet size={30} /> Your Balance 
                                 </span>
                                 <span>
-                                    $ {currentUser.wallet.balance.toFixed(2)}
+                                    $ {currentUser.wallet?.balance.toFixed(2)}
                                 </span>
                             </h2>
                             <p className="italic flex flex-col">
@@ -112,7 +118,7 @@ const MyWalletPage = () => {
                     <div>
                         <Table>
                             <TableCaption>Table of Transactions</TableCaption>
-                            <TableHeader>
+                            <TableHeader >
                                 <TableRow>
                                     <TableHead>IDT</TableHead>
                                     <TableHead>Status</TableHead>
@@ -122,13 +128,18 @@ const MyWalletPage = () => {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                <TableRow>
-                                    <TableCell>IFAF23</TableCell>
-                                    <TableCell>Paid</TableCell>
-                                    <TableCell>Credit Card</TableCell>
-                                    <TableCell>$ 200.000</TableCell>
-                                    <TableCell>Usd</TableCell>
-                                </TableRow>
+                                {
+                                    transactions && transactions.map((transaction) => (
+                                        <TableRow className="text-center">
+                                            <TableCell>{transaction.id.slice(-4).toLocaleUpperCase()}</TableCell>
+                                            <TableCell className="text-emerald-600">{transaction.status}</TableCell>
+                                            <TableCell>{transaction.method}</TableCell>
+                                            <TableCell>$ {transaction.amount}</TableCell>
+                                            <TableCell>{transaction.currency}</TableCell>
+                                        </TableRow>
+                                    ))
+                                }
+
                             </TableBody>
                         </Table>
                     </div>

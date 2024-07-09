@@ -56,26 +56,28 @@ export const useGetAllRecipes = () => {
 export const useGetMyRecipe = () => {
     const { getAccessTokenSilently } = useAuth0();
     const { recipeId } = useParams();
-    console.log(recipeId)
-    const getMyRecipe = async (): Promise<Recipe> => {
-        const accessToken = await getAccessTokenSilently()
+    console.log(recipeId);
+
+    const getMyRecipe = async () => {
+        const accessToken = await getAccessTokenSilently();
         const response = await fetch(`${API_BASE_URL}/api/my/recipe/${recipeId}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
-        })
+        });
 
-        if(!response.ok) {
-            throw new Error("Failed to get a recipe")
+        if (!response.ok) {
+            throw new Error("Failed to get a recipe");
         }
 
-        return response.json()
-    }
-    const { data: recipe, isLoading } = useQuery("fetchMyRecipe", getMyRecipe)
+        return response.json();
+    };
 
-    return { recipe, isLoading }
-}
+    const { data: recipe, isLoading, error } = useQuery(["fetchMyRecipe", recipeId], getMyRecipe);
+
+    return { recipe, isLoading, error };
+};
 
 export const useCreateMyRecipe = () => {
 

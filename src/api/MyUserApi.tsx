@@ -73,30 +73,27 @@ export const useUpdateMyUser = () => { // função de criar user, para fazer a r
 
     return { updateUser, isLoading }
 }
-export const useGetMyUser = () => { // função de criar user, para fazer a requisição para API 
+export const useGetMyUser = () => {
+    const { getAccessTokenSilently } = useAuth0();
 
-    const { getAccessTokenSilently } = useAuth0(); // obtendo uma função de Auth0 que vai buscar o token do usuário
-
-    const getMyUser = async (): Promise<User> => {
-        const accessToken = await getAccessTokenSilently()
-        
+    const getMyUser = async () => {
+        const accessToken = await getAccessTokenSilently();
         const response = await fetch(`${API_BASE_URL}/api/my/user`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
-                'Content-Type': 'application/json',
-            }
-        })
+                "Content-Type": "application/json",
+            },
+        });
 
         if (!response.ok) {
-            throw new Error("Failed to get user")
+            throw new Error("Failed to get user");
         }
 
-        return response.json()
-    }
-    
-    const { data: currentUser, isLoading } = useQuery("fetchMyRecipe" ,getMyUser)
+        return response.json();
+    };
 
-    return { currentUser, isLoading }
+    const { data: currentUser, isLoading, error } = useQuery("fetchMyUser", getMyUser);
 
-}
+    return { currentUser, isLoading, error };
+};

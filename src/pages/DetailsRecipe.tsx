@@ -24,7 +24,7 @@ const DetailsRecipe = () => {
         <img src={recipe.imageUrl} className="rounded object-cover h-full w-full"/>
       </AspectRatio>
       <div>
-        <RecipeInfo recipe={recipe}/>
+        <RecipeInfo recipe={recipe} isForSale={recipe.forSale}/>
       </div>
     </div>
   )

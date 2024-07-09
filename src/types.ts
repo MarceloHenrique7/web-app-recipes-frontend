@@ -35,12 +35,35 @@ export type Recipe = {
     prepTime: number,
     cookTime: number,
     serving: number,
+    isPublic: boolean,
+    forSale: boolean;
+    price: number;
     imageUrl: string,
     categories: string[],
     nutrients: nutrient[],
     ingredients: ingredient[],
     instructions: instruction[],
     lastUpdate: string
+}
+
+export interface Transaction {
+    id: string;
+    userId: string
+    recipeId: string;
+    status: string;
+    method: string;
+    amount: number;
+    currency: string;
+    transactionType: TransactionType,
+    createdAt?: Date,
+    updatedAt?: Date,
+}
+
+export enum TransactionType {
+    PURCHASE = "PURCHASE",
+    DEPOSIT = "DEPOSIT",
+    WITHDRAWAL = "WITHDRAWAL",
+    SALE = "SALE"
 }
 
 

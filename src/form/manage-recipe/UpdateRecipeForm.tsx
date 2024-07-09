@@ -15,6 +15,8 @@ import ImageSection from './ImageSection';
 import { Button } from '@/components/ui/button';
 import LoadingButton from '@/components/LoadingButton';
 import { useEffect } from 'react';
+import SalesSetupSection from './SalesSetupSection';
+import PrivacyRecipeSection from './PrivacyRecipeSection';
 
 
 export const formSchema = z.object({
@@ -33,6 +35,10 @@ export const formSchema = z.object({
     serving: z.string({
         required_error: "recipe serving is required"
     }),
+
+    isPublic: z.string(),
+    forSale:  z.string(),
+    price: z.coerce.number().min(1, "price is required"),
 
     
     nutrients: z.array(z.object({
@@ -112,6 +118,11 @@ const UpdateRecipeForm = ({ onSave, isLoading, recipe }: Props) => {
         formData.append("prepTime", formDataJson.prepTime)
         formData.append("cookTime", formDataJson.cookTime)
         formData.append("serving", formDataJson.serving)
+
+        formData.append("isPublic", formDataJson.isPublic)
+        formData.append("forSale", formDataJson.forSale)
+        formData.append("price", formDataJson.price.toString())
+
         formDataJson.categories.forEach((category, index) => {
             formData.append(`categories[${index}]`, category)
         })
@@ -154,7 +165,10 @@ const UpdateRecipeForm = ({ onSave, isLoading, recipe }: Props) => {
                 <NutrientsSection />
                 <Separator />
                 <ImageSection />
-
+                <Separator />
+                <SalesSetupSection />
+                <Separator />
+                <PrivacyRecipeSection />
                 {isLoading ? <LoadingButton /> : <Button type="submit">Submit</Button>}
             </form>
         </Form>

@@ -4,10 +4,12 @@ import Stack from '@mui/material/Stack';
 import CircularProgress from '@mui/material/CircularProgress';
 import SearchBar, { SearchForm } from "@/components/SearchBar";
 import { useNavigate } from "react-router-dom";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const HomePage = () => {
 
     const { recipes, isLoading } = useGetAllRecipes()
+
 
     const navigate = useNavigate()
 
@@ -33,10 +35,14 @@ const HomePage = () => {
             </Stack>
         )
     }
+
+    const recipesForFree = recipes?.filter((recipe) => recipe.forSale === false && recipe.isPublic === true)
+    const recipesForSale = recipes?.filter((recipe) => recipe.forSale === true && recipe.isPublic === true)
+
     
     return (
-        <div className="flex flex-1 flex-col items-center gap-20">
-            <div className="font-bold text-4xl">
+        <Tabs defaultValue="free-recipes">
+            <div className="font-bold text-center text-4xl">
                 <h1>Recent <span className="text-emerald-900 tracking-wide">Recipes</span></h1>
             </div>
             <div className="flex flex-col w-full items-center bg-white rounded-lg py-8 flex flex-col gap-5 text-center ">
@@ -44,13 +50,36 @@ const HomePage = () => {
                     Search for a recipe
                 </span>
                 <SearchBar placeHolder="Search by Recipe" onSubmit={handleSearchSubmit} />
-            </div>                         
-            <div className="w-full self-center grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-                {recipes && recipes?.map((recipe, index) => (
-                    <CardMyRecipes key={index} isHomePage={true} recipe={recipe} />
-                ))}
-            </div>
-        </div>
+            </div>     
+            <TabsList className="w-full flex items-center justify-between">
+                <TabsTrigger value="free-recipes" className="w-full">
+                    Recipes Free
+                </TabsTrigger>
+                <TabsTrigger value="buy-recipes" className="w-full">
+                    Buy Recipes
+                </TabsTrigger>
+            </TabsList>
+            <TabsContent value="free-recipes">
+                <div className="flex flex-1 flex-col items-center gap-20">
+                    <div className="w-full self-center grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                        {recipesForFree && recipesForFree?.map((recipe, index) => (
+                            <CardMyRecipes key={index} isForSale={false} isHomePage={true} recipe={recipe} />
+                        ))}
+                    </div>
+                </div>
+            </TabsContent>
+            <TabsContent value="buy-recipes">
+                <div className="flex flex-1 flex-col items-center gap-20">
+                    <div className="w-full self-center grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+                        {recipesForSale && recipesForSale?.map((recipe, index) => (
+                            <CardMyRecipes isForSale={true} key={index} isHomePage={true} recipe={recipe} />
+                        ))}
+                    </div>
+                </div>
+            </TabsContent>
+
+        </Tabs>
+
     )
 
 }
