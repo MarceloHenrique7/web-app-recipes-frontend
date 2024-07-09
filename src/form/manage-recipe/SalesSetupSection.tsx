@@ -9,7 +9,7 @@ const SalesSetupSection = () => {
 
     const { control } = useFormContext()
 
-    const [forSale, setForSale] = useState(true)
+    const [forSale, setForSale] = useState(false)
 
     return (
         <div className="flex flex-col gap-4">

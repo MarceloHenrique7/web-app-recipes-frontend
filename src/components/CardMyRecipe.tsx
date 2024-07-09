@@ -55,11 +55,11 @@ const CardMyRecipes = ({recipe, isHomePage, isForSale}: Props) => {
         
         {!isHomePage ? (
           <div className="flex justify-start gap-5 m-5">
-            <Link to={`/details/${recipe.id}`} className="bg-gray-700 flex items-center justify-center rounded font-bold flex-1 p-2 text-white">Details</Link>
-            <Link to={`/update/${recipe.id}`} className="bg-emerald-700 p-2 rounded text-white"><Pencil /> </Link>
+            <Link to={`/details/${recipe.id}`} className="bg-emerald-700 hover:bg-emerald-900 flex items-center justify-center rounded font-bold flex-1 p-2 text-white">Details</Link>
+            <Link to={`/update/${recipe.id}`} className="bg-emerald-700 hover:bg-emerald-900 p-2 rounded text-white"><Pencil /> </Link>
             <Dialog>
               <DialogTrigger asChild>
-                <Button  className="bg-red-700 h-full p-2 rounded text-white">
+                <Button  className="bg-red-700 hover:bg-red-900 h-full p-2 rounded text-white">
                   <Trash2/>
                 </Button>
               </DialogTrigger>
@@ -81,7 +81,7 @@ const CardMyRecipes = ({recipe, isHomePage, isForSale}: Props) => {
           </div>
         ) : (
           <div className="flex justify-start gap-5 m-5">
-            <Link to={`/details/${recipe.id}`} className="bg-emerald-700 flex items-center justify-center rounded font-bold flex-1 p-2 text-white">Details</Link>
+            <Link to={`/details/${recipe.id}`} className="bg-emerald-700 hover:bg-emerald-900 transition-all flex items-center justify-center rounded font-bold flex-1 p-2 text-white">{recipe.forSale  ? 'See More (Buy Now)': 'See More'}</Link>
           </div>
         )
       }

@@ -26,7 +26,7 @@ const PrivacyRecipeSection = () => {
             <h1 className="text-2xl font-bold">
                 Privacy Options 
             </h1>
-            <div className="rounded flex flex-col md:flex-row items-center justify-between gap-5 bg-gray-200 py-10 px-5">
+            <div className="rounded flex flex-col md:flex-row items-start justify-between gap-5 py-5">
                 <FormLabel className="font-bold text-xl">
                     Change the privacy of Recipe
                 </FormLabel>
@@ -41,10 +41,10 @@ const PrivacyRecipeSection = () => {
                                     const getValue = OPTIONS_PRIVACY.find((item) => item.label == value)
                                     field.onChange(getValue?.value);
                                 }}>
-                                    <SelectTrigger className="w-[180px]">
-                                        <SelectValue className="theme"/>
+                                    <SelectTrigger className="w-[180px] bg-emerald-900 text-white font-bold">
+                                        <SelectValue placeholder="select the option" className="theme"/>
                                     </SelectTrigger>
-                                    <SelectContent>
+                                    <SelectContent className="flex gap-4">
                                         {OPTIONS_PRIVACY.map((item) => (
                                             <SelectItem  {...field} onChange={() => {
                                                 field.value = item.value

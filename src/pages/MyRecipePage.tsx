@@ -47,4 +47,3 @@ const MyRecipePage = () => {
 }
 
 export default MyRecipePage;
-

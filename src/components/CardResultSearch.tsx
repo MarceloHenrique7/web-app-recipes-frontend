@@ -7,9 +7,10 @@ import { Beef, ChefHat, Clock1, Dot } from "lucide-react"
 
 type Props = {
     recipe: Recipe
+    isForSale: boolean;
 }
 
-const CardResultSearch = ({ recipe }: Props) => {
+const CardResultSearch = ({ recipe, isForSale }: Props) => {
 
 
   return (
@@ -20,8 +21,13 @@ const CardResultSearch = ({ recipe }: Props) => {
                 <img src={recipe.imageUrl} className="rounded object-cover w-full h-full"/>
             </AspectRatio>
             <CardHeader>
-                <CardTitle>
+                <CardTitle className="flex flex-wrap justify-between">
                     {recipe.name}
+                    <span>
+                        {isForSale && (
+                        `$ ${recipe.price.toFixed(2).replace('.', ',')}`
+                        )}
+                    </span>
                 </CardTitle>
                 <CardDescription>
                     {recipe.description}

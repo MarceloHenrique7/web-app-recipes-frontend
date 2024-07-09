@@ -161,6 +161,7 @@ const ManageRecipeForm = ({ onSave, isLoading, recipe, btnText }: Props) => {
                 <SalesSetupSection />
                 <Separator />
                 <PrivacyRecipeSection />
+                <Separator />
                 {isLoading ? <LoadingButton /> : <Button className='bg-emerald-900' type="submit">{btnText}</Button>}
             </form>
         </Form>
