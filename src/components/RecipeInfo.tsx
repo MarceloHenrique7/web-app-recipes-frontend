@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useCreateCheckoutSession } from "@/api/MyTransactionApi";
 import { useGetMyUser } from "@/api/MyUserApi";
+import LoadingButton from "./LoadingButton";
 
 type Props = {
     recipe: Recipe;
@@ -132,9 +133,9 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
                                 <Link className="font-bold flex justify-between items-center bg-emerald-900 p-2 rounded-lg text-white" to={`/checkout/wallet/${recipe.id}`}>
                                     <span>Continue with Wallet</span> <span><ArrowRight /></span>
                                 </Link>
-                                <Button onClick={onCheckout} className="font-bold flex justify-between items-center bg-emerald-900 hover:bg-emerald-900 p-2 rounded-lg text-white" >
+                                { isLoadingCheckout ? <LoadingButton/> : <Button onClick={onCheckout} className="font-bold flex justify-between items-center bg-emerald-900 hover:bg-emerald-900 p-2 rounded-lg text-white" >
                                     <span>Continue with Credit Card</span> <span><ArrowRight /></span>
-                                </Button>
+                                </Button> }
                             </DialogDescription>
                         </DialogContent>
                     </Dialog>

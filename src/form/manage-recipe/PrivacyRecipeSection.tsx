@@ -1,6 +1,5 @@
 import { FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { FormControl } from "@mui/material";
-import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"; 
 
@@ -15,24 +14,12 @@ const OPTIONS_PRIVACY = [
     }
 ]
 
-type Option = {
-    label: string;
-    value: boolean
-}
 
 const PrivacyRecipeSection = () => {
 
     const {control} = useFormContext()
 
-    const [label, setLabel] = useState('Public');
 
-    const handleOnChangeLabel = (newValue: Option) => {
-        setLabel(newValue.label)
-    }
-
-    const onChangeEvent = ( field: any) => {
-        console.log(field)
-    }
 
     return (
         <div className="flex flex-col gap-5">
@@ -55,7 +42,7 @@ const PrivacyRecipeSection = () => {
                                     field.onChange(getValue?.value);
                                 }}>
                                     <SelectTrigger className="w-[180px]">
-                                        <SelectValue placeholder={label} className="theme"/>
+                                        <SelectValue className="theme"/>
                                     </SelectTrigger>
                                     <SelectContent>
                                         {OPTIONS_PRIVACY.map((item) => (

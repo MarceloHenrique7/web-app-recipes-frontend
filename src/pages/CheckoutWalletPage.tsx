@@ -34,6 +34,7 @@ const CheckoutWalletPage = () => {
 
     const onSave = () => {
         createTransaction({
+            userId: currentUser.id,
             recipeId: recipe?.id,
             status: "pending",
             method: "wallet",

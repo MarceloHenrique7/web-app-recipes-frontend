@@ -31,7 +31,7 @@ export const useCreateMyTransaction = () => {
         return response.json()
     }
 
-    const { mutate: createTransaction, isLoading, error, isSuccess } = useMutation(createMyTransaction, {
+    const { mutate: createTransaction, isLoading } = useMutation(createMyTransaction, {
         onSuccess: () => {
             toast.success("Approved transaction")
         },

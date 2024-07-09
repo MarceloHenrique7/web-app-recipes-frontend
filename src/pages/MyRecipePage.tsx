@@ -38,7 +38,7 @@ const MyRecipePage = () => {
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 h-full gap-10 self-center">
         {recipes?.map((recipe) => (
-          <CardMyRecipe isHomePage={false} recipe={recipe}/>
+          <CardMyRecipe isForSale isHomePage={false} recipe={recipe}/>
         ))}
       </div>
 
