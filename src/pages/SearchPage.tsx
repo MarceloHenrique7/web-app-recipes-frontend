@@ -81,12 +81,9 @@ const SearchPage = () => {
         </div>
         <div id="main-content" className="flex flex-col gap-5">
             <SearchBar searchQuery={searchState.searchQuery} onSubmit={handleSearchSubmit} placeHolder="Search for a recipe" />
-            <div className="flex flex-row justify-between">
-              <SearchResultsInfo total={results?.pagination.total || 0} recipe={recipe}/>
-              <DropDownOption sortOption={searchState.sortOption} onChange={(value) => setSortOption(value)}/>
-            </div>
-            <Tabs defaultValue="free-recipes">    
-            <TabsList className="w-full flex items-center justify-between">
+
+          <Tabs defaultValue="free-recipes">    
+            <TabsList className="w-full flex items-center justify-between mb-5 mt-5">
                 <TabsTrigger value="free-recipes" className="w-full">
                     Recipes Free
                 </TabsTrigger>
@@ -95,6 +92,10 @@ const SearchPage = () => {
                 </TabsTrigger>
             </TabsList>
             <TabsContent value="free-recipes">
+                <div className="flex flex-row justify-between">
+                  <SearchResultsInfo total={recipesForFree?.length || 0} recipe={recipe}/>
+                  <DropDownOption sortOption={searchState.sortOption} onChange={(value) => setSortOption(value)}/>
+                </div>
                 <div className="flex flex-1 flex-col items-center gap-20">
                     <div className="w-full self-center grid gap-10 md:grid-cols-2 lg:grid-cols-3">
                     {
@@ -110,6 +111,10 @@ const SearchPage = () => {
                 </div>
             </TabsContent>
             <TabsContent value="buy-recipes">
+                <div className="flex flex-row justify-between">
+                  <SearchResultsInfo total={recipesForSale?.length || 0} recipe={recipe}/>
+                  <DropDownOption sortOption={searchState.sortOption} onChange={(value) => setSortOption(value)}/>
+                </div>
                 <div className="flex flex-1 flex-col items-center gap-20">
                     <div className="w-full self-center grid gap-10 md:grid-cols-2 lg:grid-cols-3">
                     {
