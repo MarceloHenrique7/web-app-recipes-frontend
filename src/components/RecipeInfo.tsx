@@ -2,11 +2,12 @@ import { Recipe, TransactionType } from "@/types"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
 import {  ArrowRight, Dot, ShoppingCart, Star } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useCreateCheckoutSession } from "@/api/MyTransactionApi";
 import { useGetMyUser } from "@/api/MyUserApi";
 import LoadingButton from "./LoadingButton";
+import { useAuth0 } from "@auth0/auth0-react";
 
 type Props = {
     recipe: Recipe;
@@ -17,14 +18,36 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
 
     const { createCheckoutSession, isLoading: isLoadingCheckout } = useCreateCheckoutSession()
 
-    const { currentUser, isLoading: isLoadingUser } = useGetMyUser()
+    
+    const { isAuthenticated, loginWithRedirect } = useAuth0()
+    
+    let user: any;
 
-    if (!currentUser) {
-        return "Unable to get user"
+    if ( isAuthenticated ) {
+        const { currentUser, isLoading: isLoadingUser } = useGetMyUser()
+        if (!currentUser) {
+            return "Unable to get user"
+        }
+    
+        if (isLoadingUser) {
+            return "Loading..."
+        }
+        user = currentUser
+    
     }
+    
+    const { pathname } = useLocation()
 
-    if (isLoadingUser) {
-        return "Loading..."
+    const onLogin = async () => {
+        // quando usuário clicar no botão vai vim para essa função
+        
+        await loginWithRedirect({
+            //aqui chamamos o metodo de loginWithRedirect
+            appState: {
+                // quando usuário fizer login ele vai ser retornado para a url que foi salva antes do clique no botão
+                returnTo: pathname
+            }
+        })
     }
 
     if(!recipe) {
@@ -39,7 +62,7 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
             currency: "usd",
             method: "card",
             amount: recipe.price,
-            userId: currentUser._id,
+            userId: user._id,
             recipeId: recipe.id,
         }
 
@@ -118,29 +141,41 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
                     </div>
                 ))}
             </div>
-            <CardFooter className="gap-2 mt-20">  
-                <span className=" flex flex-wrap gap-2">
-                    <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white font-bold hover:bg-emerald-900"><Star/>Save</span>
-                    <Dialog>
-                        <DialogTrigger>
-                            <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white font-bold hover:bg-emerald-900"><ShoppingCart />Buy this Recipe</span>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-[350px] rounded-md">
-                            <DialogTitle className="font-bold text-2xl mb-8">
-                                Choose the form of payment
-                            </DialogTitle>
-                            <DialogDescription className="flex flex-col gap-2">
-                                <Link className="font-bold flex justify-between items-center bg-emerald-900 p-2 rounded-lg text-white" to={`/checkout/wallet/${recipe.id}`}>
-                                    <span>Continue with Wallet</span> <span><ArrowRight /></span>
-                                </Link>
-                                { isLoadingCheckout ? <LoadingButton/> : <Button onClick={onCheckout} className="font-bold flex justify-between items-center bg-emerald-900 hover:bg-emerald-900 p-2 rounded-lg text-white" >
-                                    <span>Continue with Credit Card</span> <span><ArrowRight /></span>
-                                </Button> }
-                            </DialogDescription>
-                        </DialogContent>
-                    </Dialog>
-                </span>
-            </CardFooter>
+            {
+                isForSale ? (
+                    isAuthenticated ? (
+                        <CardFooter className="gap-2 mt-20">  
+                            <span className=" flex flex-wrap gap-2">
+                                <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white font-bold hover:bg-emerald-900"><Star/>Save</span>
+                                <Dialog>
+                                    <DialogTrigger>
+                                        <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white font-bold hover:bg-emerald-900"><ShoppingCart />Buy this Recipe</span>
+                                    </DialogTrigger>
+                                    <DialogContent className="max-w-[350px] rounded-md">
+                                        <DialogTitle className="font-bold text-2xl mb-8">
+                                            Choose the form of payment
+                                        </DialogTitle>
+                                        <DialogDescription className="flex flex-col gap-2">
+                                            <Link className="font-bold flex justify-between items-center bg-emerald-900 p-2 rounded-lg text-white" to={`/checkout/wallet/${recipe.id}`}>
+                                                <span>Continue with Wallet</span> <span><ArrowRight /></span>
+                                            </Link>
+                                            { isLoadingCheckout ? <LoadingButton/> : <Button onClick={onCheckout} className="font-bold flex justify-between items-center bg-emerald-900 hover:bg-emerald-900 p-2 rounded-lg text-white" >
+                                                <span>Continue with Credit Card</span> <span><ArrowRight /></span>
+                                            </Button> }
+                                        </DialogDescription>
+                                    </DialogContent>
+                                </Dialog>
+                            </span>
+                        </CardFooter>
+                    ) : (
+                        <Button className="self-start bg-emerald-900 font-bold hover:bg-emerald-700 transition-all ease-in-out" onClick={onLogin}>Make Log In for buy this recipe</Button>
+                    )
+                ) : (
+                    <span></span>
+                )
+                
+            }
+            
         </CardContent>
     </Card>
   )

@@ -54,17 +54,12 @@ export const useGetAllRecipes = () => {
 
 
 export const useGetMyRecipe = () => {
-    const { getAccessTokenSilently } = useAuth0();
     const { recipeId } = useParams();
     console.log(recipeId);
 
     const getMyRecipe = async () => {
-        const accessToken = await getAccessTokenSilently();
         const response = await fetch(`${API_BASE_URL}/api/my/recipe/${recipeId}`, {
             method: "GET",
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
         });
 
         if (!response.ok) {
