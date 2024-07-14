@@ -54,7 +54,7 @@ const AppRoutes = () => {
                     <CheckoutWalletPage />
                 </Layout>
             }/>
-            <Route path='/transaction-status' element={
+            <Route path='/transaction-status/:recipeId' element={
                 <Layout showHero={false}>
                     <TransactionStatusPage />
                 </Layout>

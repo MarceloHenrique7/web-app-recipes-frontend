@@ -36,7 +36,7 @@ const MyWalletPage = () => {
                                     <Wallet size={30} /> Your Balance 
                                 </span>
                                 <span>
-                                    $ {currentUser.wallet?.balance.toFixed(2)}
+                                    $ {currentUser.wallet?.balance.toFixed(2).replace('.', ',')}
                                 </span>
                             </h2>
                             <p className="italic flex flex-col">
@@ -115,7 +115,13 @@ const MyWalletPage = () => {
                     </div>
                     <div>
                         <Table>
-                            <TableCaption>Table of Transactions</TableCaption>
+                            {
+                                transactions.length === 0 ? (
+                                    <TableCaption>You Don't have transactions yet</TableCaption>
+                                ) : (
+                                    <TableCaption>Table of Transactions</TableCaption>
+                                )
+                            }
                             <TableHeader >
                                 <TableRow>
                                     <TableHead>IDT</TableHead>

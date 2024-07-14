@@ -55,7 +55,7 @@ export const useGetAllRecipes = () => {
 
 export const useGetMyRecipe = () => {
     const { recipeId } = useParams();
-    console.log(recipeId);
+    console.log("Esse e o id da receita", recipeId);
 
     const getMyRecipe = async () => {
         const response = await fetch(`${API_BASE_URL}/api/my/recipe/${recipeId}`, {

@@ -171,7 +171,7 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
                         <Button className="self-start bg-emerald-900 font-bold hover:bg-emerald-700 transition-all ease-in-out" onClick={onLogin}>Make Log In for buy this recipe</Button>
                     )
                 ) : (
-                    <span></span>
+                    <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white self-start font-bold hover:bg-emerald-900"><Star/>Save</span>
                 )
                 
             }

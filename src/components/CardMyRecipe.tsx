@@ -54,7 +54,7 @@ const CardMyRecipes = ({recipe, isHomePage, isForSale}: Props) => {
       
         
         {!isHomePage ? (
-          <div className="flex justify-start gap-5 m-5">
+          <div className="flex items-center justify-start gap-5 m-5">
             <Link to={`/details/${recipe.id}`} className="bg-emerald-700 hover:bg-emerald-900 flex items-center justify-center rounded font-bold flex-1 p-2 text-white">Details</Link>
             <Link to={`/update/${recipe.id}`} className="bg-emerald-700 hover:bg-emerald-900 p-2 rounded text-white"><Pencil /> </Link>
             <Dialog>
