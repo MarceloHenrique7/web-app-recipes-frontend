@@ -1,4 +1,4 @@
-import { fetchUtils, DataProvider, CreateParams, UpdateParams, CreateResult, UpdateResult, DeleteParams, DeleteManyParams, GetListParams, GetManyParams, GetManyReferenceParams, GetOneParams } from 'react-admin';
+import { fetchUtils, DataProvider, CreateParams, UpdateParams } from 'react-admin';
 import simpleRestProvider from 'ra-data-simple-rest';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
