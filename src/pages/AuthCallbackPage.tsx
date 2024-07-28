@@ -9,7 +9,7 @@ const AuthCallbackPage = () => {
     const createUser = useCreateMyUser();
 
     const hasCreatedUser = useRef(false)
-
+    
     useEffect(() => {
         if(user?.sub && user?.email && user?.name && !hasCreatedUser.current) {
             createUser.mutateAsync({ auth0Id: user.sub, email: user.email, name: user.name})

@@ -5,6 +5,8 @@ import AppRoutes from './AppRoutes'
 import Auth0ProviderWithNavigate from './auth/Auth0ProviderWithNavigate'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import './global.css'
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 import { Toaster } from 'sonner'
 
 const queryClient = new QueryClient({

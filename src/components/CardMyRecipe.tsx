@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Label } from "./ui/label";
+import { useDeleteMyRecipe } from "@/api/MyRecipeApi";
 
 
 type Props = {
@@ -16,6 +17,20 @@ type Props = {
 
 
 const CardMyRecipes = ({recipe, isHomePage, isForSale}: Props) => {
+
+
+  const { deleteRecipe, isLoading } = useDeleteMyRecipe()
+
+  if (isLoading) {
+    return "Loading"
+  }
+
+  const handleClickDeleteRecipe = async () => {
+
+    await deleteRecipe(recipe.id)
+
+  }
+
   return (
     <Card key={recipe.id} className="h-full w-full flex flex-col justify-between">
         <AspectRatio ratio={16/6}>
@@ -59,7 +74,7 @@ const CardMyRecipes = ({recipe, isHomePage, isForSale}: Props) => {
             <Link to={`/update/${recipe.id}`} className="bg-emerald-700 hover:bg-emerald-900 p-2 rounded text-white"><Pencil /> </Link>
             <Dialog>
               <DialogTrigger asChild>
-                <Button  className="bg-red-700 hover:bg-red-900 h-full p-2 rounded text-white">
+                <Button className="bg-red-700 hover:bg-red-900 h-full p-2 rounded text-white">
                   <Trash2/>
                 </Button>
               </DialogTrigger>
@@ -70,7 +85,7 @@ const CardMyRecipes = ({recipe, isHomePage, isForSale}: Props) => {
                 </DialogHeader>
                 <div className="flex justify-end">
                   <Label>
-                    <Button>
+                    <Button onClick={handleClickDeleteRecipe}>
                       Delete recipe
                     </Button>
                   </Label>

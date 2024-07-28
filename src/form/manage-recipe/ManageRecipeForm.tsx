@@ -53,7 +53,7 @@ export const formSchema = z.object({
     })),
     isPublic: z.boolean(),
     forSale:  z.boolean(),
-    price: z.coerce.number().min(1, "price is required"),
+    price: z.coerce.number(),
 
 
     imageUrl: z.string().optional(),

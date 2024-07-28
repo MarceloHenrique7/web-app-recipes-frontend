@@ -113,7 +113,7 @@ const MyWalletPage = () => {
                     <div>
                         <h1 className="font-bold text-2xl text-emerald-900">History Of Payments</h1>
                     </div>
-                    <div>
+                    <div className="overflow-x-auto max-w-full">
                         <Table>
                             {
                                 transactions.length === 0 ? (
@@ -123,12 +123,13 @@ const MyWalletPage = () => {
                                 )
                             }
                             <TableHeader >
-                                <TableRow>
+                                <TableRow className="text-center ">
                                     <TableHead>IDT</TableHead>
                                     <TableHead>Status</TableHead>
                                     <TableHead>Method</TableHead>
                                     <TableHead>Amount</TableHead>
                                     <TableHead>Currency</TableHead>
+                                    <TableHead>Type</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -140,6 +141,7 @@ const MyWalletPage = () => {
                                             <TableCell>{transaction.method}</TableCell>
                                             <TableCell>$ {transaction.amount}</TableCell>
                                             <TableCell>{transaction.currency}</TableCell>
+                                            <TableCell>{transaction.transactionType}</TableCell>
                                         </TableRow>
                                     ))
                                 }

@@ -1,3 +1,4 @@
+import { User } from "@/types"
 import { useAuth0 } from "@auth0/auth0-react"
 import { useMutation, useQuery } from "react-query"
 import { toast } from "sonner"
@@ -11,14 +12,13 @@ type CreateUserRequest = { // criamos um tipo para a nossa request
     name: string
 }
 
-
 export const useCreateMyUser = () => { // função de criar user, para fazer a requisição para API 
 
     const { getAccessTokenSilently } = useAuth0(); // obtendo uma função de Auth0 que vai buscar o token do usuário
 
     const createUser = useMutation(async (user: CreateUserRequest) => {
         const accessToken = await getAccessTokenSilently(); // aqui acionamos a função de buscar pelo token
-        const response = await fetch(`http://localhost:8080/api/my/user`, {// response armazena a resposta dessa requisição || tecnicamente faz chamada pro backend
+        const response = await fetch(`${API_BASE_URL}/api/my/user`, {// response armazena a resposta dessa requisição || tecnicamente faz chamada pro backend
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`, // passando o token para Authorization que vai ser inserido no header
@@ -73,9 +73,11 @@ export const useUpdateMyUser = () => { // função de criar user, para fazer a r
     return { updateUser, isLoading }
 }
 export const useGetMyUser = () => {
+
+
     const { getAccessTokenSilently } = useAuth0();
 
-    const getMyUser = async () => {
+    const getMyUser = async (): Promise<User> => {
         const accessToken = await getAccessTokenSilently();
         const response = await fetch(`${API_BASE_URL}/api/my/user`, {
             method: "GET",

@@ -8,6 +8,9 @@ import { useCreateCheckoutSession } from "@/api/MyTransactionApi";
 import { useGetMyUser } from "@/api/MyUserApi";
 import LoadingButton from "./LoadingButton";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useCreateNotification, useDeleteNotification } from "@/api/NotificationApi";
+import { useEffect, useState } from "react";
+
 
 type Props = {
     recipe: Recipe;
@@ -15,28 +18,29 @@ type Props = {
 }
 
 const RecipeInfo = ({ recipe, isForSale }: Props) => {
-
+    
     const { createCheckoutSession, isLoading: isLoadingCheckout } = useCreateCheckoutSession()
-
-    
+    const { currentUser, isLoading: isLoadingUser } = useGetMyUser()
     const { isAuthenticated, loginWithRedirect } = useAuth0()
-    
-    let user: any;
-
-    if ( isAuthenticated ) {
-        const { currentUser, isLoading: isLoadingUser } = useGetMyUser()
-        if (!currentUser) {
-            return "Unable to get user"
-        }
-    
-        if (isLoadingUser) {
-            return "Loading..."
-        }
-        user = currentUser
-    
-    }
-    
     const { pathname } = useLocation()
+    const { createNotification } = useCreateNotification()
+    const { deleteNotification } = useDeleteNotification()
+    
+    const [messageSaveChange, setMessageSaveChange] = useState('SAVE')
+
+
+    useEffect(() => {
+        const checkIfSaved = async () => {
+          if (isAuthenticated && currentUser && recipe) {
+            const exists = currentUser.savedRecipes.includes(recipe.id);
+            if (exists) {
+                console.log("CAIU AQUI")
+              setMessageSaveChange("UNSAVE");
+            }
+          }
+        };
+        checkIfSaved();
+  }, [isAuthenticated, currentUser, recipe]);
 
     const onLogin = async () => {
         // quando usuário clicar no botão vai vim para essa função
@@ -49,11 +53,7 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
             }
         })
     }
-
-    if(!recipe) {
-        return "Unable to get recipe"
-    }
-
+    
 
     const onCheckout = async () => {
 
@@ -72,6 +72,54 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
         window.location.href = await data.url
     }
 
+
+
+    let user: any;
+
+    if ( isAuthenticated ) {
+        if (!currentUser) {
+            return "Unable to get user"
+        }
+    
+        if (isLoadingUser) {
+            return "Loading..."
+        }
+        user = currentUser
+    
+    }
+
+    if(!recipe) {
+        return "Unable to get recipe"
+    }
+
+    const handleWithSaveOnClick = async ( recipeId: string, userId: string ) => {
+        const data = {
+            title: `${currentUser?.name} saved your recipe!`,
+            subtitle: '',
+            description: '',
+            recipientUserId: recipe.userId,
+            recipeId: recipe.id,
+            type: "SAVE",
+            userId: currentUser?.id as string,
+            isGeneral: false,
+            isRead: false,
+            readByUsers: [],
+        }
+
+
+        if(messageSaveChange === 'SAVE') {
+            await createNotification(data)
+
+            setMessageSaveChange('UNSAVE')
+        } else {
+            await deleteNotification({recipeId, userId})
+
+            setMessageSaveChange('SAVE')
+        }
+
+        
+
+    }
 
   return (
     <Card>
@@ -146,7 +194,7 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
                     isAuthenticated ? (
                         <CardFooter className="gap-2 mt-20">  
                             <span className=" flex flex-wrap gap-2">
-                                <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white font-bold hover:bg-emerald-900"><Star/>Save</span>
+                                <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white font-bold hover:bg-emerald-900" onClick={() => handleWithSaveOnClick(recipe.id, currentUser?.id as string)}><i className={`bi bi-lg ${messageSaveChange === 'SAVE' ? 'bi-bookmark' : 'bi-bookmark-fill'}`} ></i>{messageSaveChange}</span>
                                 <Dialog>
                                     <DialogTrigger>
                                         <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white font-bold hover:bg-emerald-900"><ShoppingCart />Buy this Recipe</span>
@@ -171,7 +219,7 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
                         <Button className="self-start bg-emerald-900 font-bold hover:bg-emerald-700 transition-all ease-in-out" onClick={onLogin}>Make Log In for buy this recipe</Button>
                     )
                 ) : (
-                    <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white self-start font-bold hover:bg-emerald-900"><Star/>Save</span>
+                    <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white self-start font-bold hover:bg-emerald-900" onClick={() => handleWithSaveOnClick(recipe.id, currentUser?.id as string)}><i className={`${messageSaveChange === 'SAVE' ? 'bi-bookmark' : 'bi-bookmark-fill'}`}></i>{messageSaveChange}</span>
                 )
                 
             }

@@ -13,17 +13,20 @@ import SearchPage from './pages/SearchPage'
 import MyWalletPage from './pages/MyWalletPage'
 import CheckoutWalletPage from './pages/CheckoutWalletPage'
 import TransactionStatusPage from './pages/TransactionStatusPage'
+import AdminApp from './AdminApp'
 
 const AppRoutes = () => {
   return (
     <Routes>
-        <Route path="*" element={<Navigate to="/"/>}/>
         <Route path='/' element={
         <Layout showHero={true}>
             <HomePage />
         </Layout>   
         }/>
         <Route element={<ProtectedRoute />}>
+            <Route path='/admin/*' element={
+                <AdminApp />
+            }/>
             <Route path='/create-recipe' element={
                 <Layout showHero={false}>
                     <ManageRecipePage />

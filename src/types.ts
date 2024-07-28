@@ -4,10 +4,13 @@ type Wallet = {
 }
 
 export type User = {
-    _id: string;
+    id: string;
+    auth0Id: string;
     email: string;
     name: string;
+    walletId: string;
     wallet: Wallet;
+    savedRecipes: string[];
 }
 
 type nutrient = {
@@ -30,6 +33,7 @@ type instruction = {
 export type Recipe = {
     id: string
     user: string,
+    userId: string;
     name: string,
     description: string,
     prepTime: number,
@@ -57,6 +61,22 @@ export interface Transaction {
     transactionType: TransactionType,
     createdAt?: Date,
     updatedAt?: Date,
+}
+
+
+export type Notification = {
+    id?: string;
+    title: string;
+    subtitle: string;
+    description: string;
+    recipientUserId: string;
+    recipeId: string;
+    type: string;
+    userId: string;
+    isGeneral: boolean;
+    createdAt?: Date;
+    isRead: boolean;
+    readByUsers: string[];
 }
 
 export enum TransactionType {

@@ -10,7 +10,6 @@ const HomePage = () => {
 
     const { recipes, isLoading } = useGetAllRecipes()
 
-
     const navigate = useNavigate()
 
     const handleSearchSubmit = (searchFormValues: SearchForm) => {

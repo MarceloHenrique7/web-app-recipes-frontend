@@ -57,7 +57,7 @@ export const useGetMyRecipe = () => {
     const { recipeId } = useParams();
     console.log("Esse e o id da receita", recipeId);
 
-    const getMyRecipe = async () => {
+    const getMyRecipe = async (): Promise<Recipe> => {
         const response = await fetch(`${API_BASE_URL}/api/my/recipe/${recipeId}`, {
             method: "GET",
         });
@@ -153,4 +153,40 @@ export const useUpdateMyRecipe = () => {
     }
 
     return { updateRecipe, isLoading }
+}
+
+
+export const useDeleteMyRecipe = () => {
+
+    const { getAccessTokenSilently } = useAuth0()
+
+    const deleteMyRecipeRequest = async (recipeId: string): Promise<void> => {
+        const accessToken = await getAccessTokenSilently()
+        await fetch(`${API_BASE_URL}/api/my/recipe/${recipeId}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        })
+
+    }
+
+    const {
+        mutate: deleteRecipe,
+        isLoading,
+        isSuccess,
+        error,
+        reset
+    } = useMutation(deleteMyRecipeRequest);
+
+    if(isSuccess) {
+        toast.success("Recipe deleted with success")
+    }
+
+    if(error) {
+        toast.error("Failed to deleted a Recipe")
+        reset()
+    }
+
+    return { deleteRecipe, isLoading }
 }

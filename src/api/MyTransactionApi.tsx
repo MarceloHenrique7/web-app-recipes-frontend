@@ -13,6 +13,7 @@ export const useCreateMyTransaction = () => {
 
 
     const createMyTransaction = async ( transactionForm: IBodyProps): Promise<Transaction> => {
+        console.log(transactionForm)
         const accessToken = await getAccessTokenSilently()
         const response = await fetch(`${API_BASE_URL}/api/transaction/create/wallet`, {
             method: "POST",

@@ -1,6 +1,7 @@
 
 
 import { useGetMyRecipe } from "@/api/MyRecipeApi";
+import { useGetMyUser } from "@/api/MyUserApi";
 import RecipeInfo from "@/components/RecipeInfo";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
@@ -8,15 +9,14 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const DetailsRecipe = () => {
     const { recipe, isLoading } = useGetMyRecipe();
-
     if (!recipe) {
         return "No Recipes Found"
     }
 
+
     if(isLoading) {
         return "Loading..."
     }
-    
 
   return (
     <div className="flex flex-col gap-10">
@@ -24,6 +24,7 @@ const DetailsRecipe = () => {
         <img src={recipe.imageUrl} className="rounded object-cover h-full w-full"/>
       </AspectRatio>
       <div>
+        
         <RecipeInfo recipe={recipe} isForSale={recipe.forSale}/>
       </div>
     </div>
