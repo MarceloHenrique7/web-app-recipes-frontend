@@ -1,4 +1,4 @@
-import { ArrayInput, BooleanInput, DateInput, Create, NumberInput, SimpleForm, SimpleFormIterator, TextInput, ImageInput, ImageField, FileField, FileInput } from 'react-admin';
+import { ArrayInput, BooleanInput, DateInput, Create, NumberInput, SimpleForm, SimpleFormIterator, TextInput, FileField, FileInput } from 'react-admin';
 
 const RecipeCreate = () => (
     <Create>

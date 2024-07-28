@@ -1,4 +1,4 @@
-import { Edit, SimpleForm, TextInput, ReferenceInput, SelectInput, TopToolbar, ShowButton, ListButton, Button } from 'react-admin';
+import { Edit, SimpleForm, TextInput } from 'react-admin';
 
 
 const PostEdit = () => (

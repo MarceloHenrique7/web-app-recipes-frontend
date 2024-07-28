@@ -1,7 +1,6 @@
 
 
 import { useGetMyRecipe } from "@/api/MyRecipeApi";
-import { useGetMyUser } from "@/api/MyUserApi";
 import RecipeInfo from "@/components/RecipeInfo";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 

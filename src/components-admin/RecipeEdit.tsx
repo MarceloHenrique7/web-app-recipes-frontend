@@ -1,4 +1,4 @@
-import { ArrayInput, BooleanInput, DateInput, Edit, FileField, FileInput, NumberInput, ReferenceInput, SimpleForm, SimpleFormIterator, TextInput } from 'react-admin';
+import { ArrayInput, BooleanInput, DateInput, Edit, FileField, FileInput, NumberInput, SimpleForm, SimpleFormIterator, TextInput } from 'react-admin';
 
 const RecipeEdit = () => (
     <Edit>

@@ -1,4 +1,4 @@
-import {Admin, Resource, ListGuesser, EditGuesser, CustomRoutes} from 'react-admin'
+import {Admin, Resource} from 'react-admin'
 
 import dataProvider from "./dataProvider";
 

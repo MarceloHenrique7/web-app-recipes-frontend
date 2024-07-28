@@ -1,6 +1,6 @@
 import { Recipe, TransactionType } from "@/types"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card"
-import {  ArrowRight, Dot, ShoppingCart, Star } from "lucide-react"
+import {  ArrowRight, Dot, ShoppingCart } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
