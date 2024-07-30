@@ -3,7 +3,12 @@ import simpleRestProvider from 'ra-data-simple-rest';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+
+
 const httpClient = async (url: string, options: fetchUtils.Options = {}): Promise<any> => {
+
+
+
     if (!options.headers) {
         options.headers = new Headers({ Accept: 'application/json' });
     } else if (!(options.headers instanceof Headers)) {
@@ -13,7 +18,7 @@ const httpClient = async (url: string, options: fetchUtils.Options = {}): Promis
     O httpClient é uma função personalizada que adiciona um cabeçalho de autorização com um token JWT para todas as requisições feitas para a API. Ele também garante que o cabeçalho Accept esteja presente e que 
     */
 
-    options.headers.set('Authorization', `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNiQVhOaEpTWWNjbmdDVUxDNEI4MCJ9.eyJpc3MiOiJodHRwczovL2Rldi1teXV2d2dwdG8za25lcTJ6LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDEwNTk3OTk3NDYyNzEwMDM4NTg5MiIsImF1ZCI6WyJ3ZWItYXBwLXJlY2lwZXMtYXBpIiwiaHR0cHM6Ly9kZXYtbXl1dndncHRvM2tuZXEyei51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzIxODY1MjM5LCJleHAiOjE3MjE5NTE2MzksInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiJZaTJGQmdlNXdRd20zOXBHN0FRbUFZb1VEQnNKOVdWWCJ9.MBOtz0T3Chpa1An9p3KM9G2Ua0jI6zaA3ou5gGZ_cILdATlwB0IWWQr1ylfumZM1jEj0L4NDy9HZUNTPPsXfKN7i8SHSdDs00qa_wHQ7OTaqhARekY6-sVLAhOApm19EWvZj2gJO5OIvXSorE-CBMfb4ycO6w5YtAmDJnQVVV-4fENe7KXqzFlyduDnWRzy-DGZm_q42VDguTdIBRz3YX0yRllVF7-yYVYCnnIuZRuzowpT0ovYsbKmMxkYnFJjQMkhmf4rIyPbx1DGnQzF5crc1GwqaA_zxw1eskaMUIoHoeFfXQKYo1NNf3T2ebltZA9SelEz-QZmYxOLjm2ggpg`);
+    options.headers.set('Authorization', `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjNiQVhOaEpTWWNjbmdDVUxDNEI4MCJ9.eyJpc3MiOiJodHRwczovL2Rldi1teXV2d2dwdG8za25lcTJ6LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDEwMzcyNjQzMTE4NDI3MjI2NzQ2NSIsImF1ZCI6WyJ3ZWItYXBwLXJlY2lwZXMtYXBpIiwiaHR0cHM6Ly9kZXYtbXl1dndncHRvM2tuZXEyei51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNzIyMjY4NDgyLCJleHAiOjE3MjIzNTQ4ODIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJhenAiOiJZaTJGQmdlNXdRd20zOXBHN0FRbUFZb1VEQnNKOVdWWCJ9.LB1kv9rsXFAEsUCWC-3XE4HToU-CIlWvduU83U862Cw_M7Jikq-DkWjIxhEOqxPj_ZIAH6VLT_3XagvyuA6VjQyJ5vFB6HyB1ey_PNKabustz8RhhZUCgAKAt5BDVJKKm4EhZhjZvYmDqmIPQoIHbFa9WvbpmNBnqwcjc4bo5vgjAg4VGMOuFu5QJa0_eWIJDD4Not1tx7yhLQKSbPcv_V6Ut7kN5-pGKJePa8RoI00fAMapGqeIPuo1mf0osizjhHzk2f2j8fNV1H37FDZJUcOhsU5VG5Q2LkDIiMPmJ3fQZm4Oct3RNmTF66RNGXgMjJp7N-J3OcEvOKlbuCbqfQ`);
     return fetchUtils.fetchJson(url, options);
 
     /*

@@ -87,7 +87,9 @@ const ManageRecipeForm = ({ onSave, isLoading, recipe, btnText }: Props) => {
             nutrients: [{calories: 0, protein: 0, fat: 0, carbohydrate: 0}],
             ingredients: [{name: "", quantity: 0, unit: "g"}],
             instructions: [{title: "", description: "", subtitle: ""}],
-            price: 0.00
+            price: 0,
+            forSale: false,
+            isPublic: true,
         }
     })
 

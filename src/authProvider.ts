@@ -1,58 +1,34 @@
-import {
-    AUTH_GET_PERMISSIONS,
-    AUTH_LOGIN,
-    AUTH_LOGOUT,
-    AUTH_ERROR,
-    AUTH_CHECK,
-  } from 'react-admin'; 
-  import { createBrowserHistory } from "history";
-  const history = createBrowserHistory();
-  
-   const homepage=()=> {
-    
-   history.push('/');// redirect function to homepage
-  }
-  export default (type: any, params: any) => {
-  
-    if (type === AUTH_LOGIN) {
-        const { username, password } = params;
-        
-  // simple user username password, redirect funtion
-        if (username === 'user' && password === 'password') {
-            localStorage.setItem('role', 'user');
-            localStorage.removeItem('not_authenticated');
-            homepage();
-            return Promise.resolve();
-          }
-   //admin  role   username and password
-        if (username === 'admin' && password === 'password') {
-            localStorage.setItem('role', 'admin');
-            localStorage.removeItem('not_authenticated');
-            return Promise.resolve();
+import { AuthProvider } from "react-admin";
+
+const authProvider: AuthProvider = {
+    login: ({ username, password }) => {
+        if (username !== 'john' || password !== '123') {
+            return Promise.reject();
         }
-        localStorage.setItem('not_authenticated', 'true');
-        return Promise.reject();
-    }
-    if (type === AUTH_LOGOUT) {
-        localStorage.setItem('not_authenticated', 'true');
-        localStorage.removeItem('role');
+        localStorage.setItem('username', username);
         return Promise.resolve();
-    }
-    if (type === AUTH_ERROR) {
-        const { status } = params;
-        return status === 401 || status === 403
-            ? Promise.reject()
-            : Promise.resolve();
-    }
-    if (type === AUTH_CHECK) {
-        return localStorage.getItem('not_authenticated')
-            ? Promise.reject()
-            : Promise.resolve();
-    }
-    if (type === AUTH_GET_PERMISSIONS) {
-        const role = localStorage.getItem('role');
-        return Promise.resolve(role);
-    }
-  
-    return Promise.reject('Unknown method');
-  };
+    },
+    logout: () => {
+        localStorage.removeItem('username');
+        return Promise.resolve();
+    },
+        checkAuth: () =>
+        localStorage.getItem('username') ? Promise.resolve() : Promise.reject(),
+    checkError:  (error) => {
+        const status = error.status;
+        if (status === 401 || status === 403) {
+            localStorage.removeItem('username');
+            return Promise.reject();
+        }
+        // other error code (404, 500, etc): no need to log out
+        return Promise.resolve();
+    },
+    getIdentity: () =>
+        Promise.resolve({
+            id: 'user',
+            fullName: 'John Doe',
+        }),
+    getPermissions: () => Promise.resolve(''),
+};
+
+export default authProvider;

@@ -1,5 +1,6 @@
 import {Admin, Resource} from 'react-admin'
 
+import authProvider from './authProvider';
 import dataProvider from "./dataProvider";
 
 import UserList from "./components-admin/UserList";
@@ -22,6 +23,7 @@ const AdminApp = () => {
             <Admin
                 basename='/admin'
                 dataProvider={dataProvider}
+                authProvider={authProvider}
                 >
                 <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate} />
                 <Resource name="recipe" list={RecipeList} edit={RecipeEdit} create={RecipeCreate}/>

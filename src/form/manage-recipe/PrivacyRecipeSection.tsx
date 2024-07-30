@@ -37,7 +37,7 @@ const PrivacyRecipeSection = () => {
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <Select onValueChange={(value) => {
+                                <Select defaultValue={'Public'} onValueChange={(value) => {
                                     const getValue = OPTIONS_PRIVACY.find((item) => item.label == value)
                                     field.onChange(getValue?.value);
                                 }}>
