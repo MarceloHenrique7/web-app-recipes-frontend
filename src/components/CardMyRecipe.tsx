@@ -38,7 +38,14 @@ const CardMyRecipes = ({recipe, isHomePage, isForSale}: Props) => {
         </AspectRatio>
       <CardHeader>
         <CardTitle className="font-bold flex flex-wrap justify-between text-2xl">
-            <h1>{recipe.name}</h1>
+            <h1>
+              {recipe.name.length >= 20 ? (
+                recipe.name.substring(0, 20)  + '...'
+              ) : (
+                recipe.name
+              )
+            }
+            </h1>
             <span>
               {isForSale && (
                 `$ ${recipe.price.toFixed(2).replace('.', ',')}`
@@ -46,7 +53,7 @@ const CardMyRecipes = ({recipe, isHomePage, isForSale}: Props) => {
             </span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col gap-5">
+      <CardContent className="flex flex-col gap-5 flex-wrap flex-1 justify-between">
         <div className="flex gap-3 flex-row flex-wrap">
           {recipe.categories.length <= 0 && <span>Don't have a category</span>}
           {recipe.categories.map((item, index) => (

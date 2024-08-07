@@ -16,14 +16,12 @@ import NotificationEdit from "./components-admin/NotificationEdit";
 import NotificationCreate from "./components-admin/NotificationCreate";
 
 
-
 const AdminApp = () => {
 
     return (
             <Admin
                 basename='/admin'
                 dataProvider={dataProvider}
-                authProvider={authProvider}
                 >
                 <Resource name="user" list={UserList} edit={UserEdit} create={UserCreate} />
                 <Resource name="recipe" list={RecipeList} edit={RecipeEdit} create={RecipeCreate}/>

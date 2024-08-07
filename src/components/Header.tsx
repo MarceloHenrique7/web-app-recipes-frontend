@@ -9,7 +9,7 @@ const Header = () => {
             Recipes
         </Link>
         <div className='md:hidden'>
-          <MobileNav />
+           <MobileNav />
         </div>
         <div className='hidden md:block'>
             <MainNav />

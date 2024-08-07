@@ -5,13 +5,14 @@ import { Bell } from "lucide-react"
 
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
 import { Separator } from "./ui/separator"
-import { Badge } from "@mui/material"
+import { Badge, CircularProgress } from "@mui/material"
 import { CardHeader, CardTitle, CardDescription } from "./ui/card"
 import { useGetAllNotifications, useUpdateNotification } from "@/api/NotificationApi"
 import { useGetMyUser } from "@/api/MyUserApi"
-import { Notification } from "@/types"
+import { Notification, User } from "@/types"
 import { ScrollArea } from "./ui/scroll-area"
 import { Button } from "./ui/button"
+import TextInfoNotification from "./TextInfoNotification"
 
 
 
@@ -19,7 +20,7 @@ const NotificationSection = () => {
 
     const { updateNotification } = useUpdateNotification();
 
-    const { notifications } = useGetAllNotifications();
+    const { notifications, isLoading } = useGetAllNotifications();
 
     const { currentUser } = useGetMyUser();
 
@@ -66,7 +67,16 @@ const NotificationSection = () => {
                                 {notification.description || ''}
                             </span>
                         </CardDescription>
-                        <Button className="p-0 underline self-start text-emerald-700" variant={"ghost"} onClick={() => handleOnClickMessageRead(notification)}>{notification.readByUsers?.includes(currentUser?.id as string) ? 'Read!' : 'Mark as read'}</Button>
+                        <Button className="p-0 underline self-start text-emerald-700" variant={"ghost"} onClick={() => handleOnClickMessageRead(notification)}>
+                            {   
+                                isLoading ? (
+                                    <CircularProgress />
+                                ) : (
+                                    <TextInfoNotification notification={notification} currentUser={currentUser as User}/>
+                                )
+  
+                            }
+                        </Button>
                         <Separator/>
                     </CardHeader>
                     

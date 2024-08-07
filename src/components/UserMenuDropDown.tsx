@@ -43,6 +43,11 @@ const UserMenuDropDown = () => {
                     $ Wallet
                 </Link>
             </DropdownMenuItem>
+            <DropdownMenuItem>
+                <Link to={"/recipes-saved"} className="font-bold">
+                    Recipes Saved
+                </Link>
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
                 <Button onClick={() => logout()} variant="ghost" className="flex-1 font-bold text-white bg-emerald-900">

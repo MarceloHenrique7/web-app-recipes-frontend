@@ -18,6 +18,9 @@ const MobileNavLinks = () => {
         <Link to={"/my-wallet"} className="font-bold text-1xl">
             $ Wallet
         </Link>
+        <Link to={"/recipes-saved"} className="font-bold text-1xl">
+            Recipes Saved
+        </Link>
         <Button onClick={() => logout()} variant="ghost" className="flex-1 font-bold text-white bg-emerald-900">
             Log Out
         </Button>

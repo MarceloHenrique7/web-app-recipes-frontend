@@ -13,6 +13,8 @@ import MyWalletPage from './pages/MyWalletPage'
 import CheckoutWalletPage from './pages/CheckoutWalletPage'
 import TransactionStatusPage from './pages/TransactionStatusPage'
 import AdminApp from './AdminApp'
+import ProtectedRouteAdmin from './auth/ProtectedRouteAdmin'
+import RecipesSaved from './pages/RecipesSavedPage'
 
 const AppRoutes = () => {
   return (
@@ -22,10 +24,12 @@ const AppRoutes = () => {
             <HomePage />
         </Layout>   
         }/>
-        <Route element={<ProtectedRoute />}>
+        <Route element={<ProtectedRouteAdmin />}>
             <Route path='/admin/*' element={
-                <AdminApp />
-            }/>
+                    <AdminApp />
+                }/>
+        </Route>
+        <Route element={<ProtectedRoute />}>
             <Route path='/create-recipe' element={
                 <Layout showHero={false}>
                     <ManageRecipePage />
@@ -49,6 +53,11 @@ const AppRoutes = () => {
             <Route path='/my-wallet' element={
                 <Layout showHero={false}>
                     <MyWalletPage />
+                </Layout>
+            }/>
+            <Route path='/recipes-saved' element={
+                <Layout showHero={false}>
+                    <RecipesSaved />
                 </Layout>
             }/>
             <Route path='/checkout/wallet/:recipeId' element={
