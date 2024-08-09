@@ -5,7 +5,6 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Link } from "react-router-dom";
 
 import objectCategories from '../config/categories-config'
-import { AspectRatio } from "./ui/aspect-ratio";
 
 const CarouselCategories = () => {
     return (
