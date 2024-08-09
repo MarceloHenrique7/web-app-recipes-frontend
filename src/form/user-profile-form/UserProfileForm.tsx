@@ -71,7 +71,7 @@ const UserProfileForm = ({ onSave, isLoading, currentUser, buttonText }: Props) 
                         </FormItem>
                 )}
                 />
-                {isLoading ? <LoadingButton /> : <Button>{buttonText ? buttonText : 'Submit'}</Button>}
+                {isLoading ? <LoadingButton /> : <Button className="bg-emerald-800 hover:bg-emerald-600">{buttonText ? buttonText : 'Submit'}</Button>}
             </form>
         </Form>
         

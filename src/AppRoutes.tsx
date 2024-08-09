@@ -1,4 +1,4 @@
-import { Route, Routes } from  'react-router-dom'
+import { Navigate, Route, Routes } from  'react-router-dom'
 import HomePage from './pages/HomePage'
 import Layout from './layout/layout'
 import AuthCallbackPage from './pages/AuthCallbackPage'
@@ -16,6 +16,8 @@ import AdminApp from './AdminApp'
 import ProtectedRouteAdmin from './auth/ProtectedRouteAdmin'
 import RecipesSaved from './pages/RecipesSavedPage'
 import PageSearchByCategories from './pages/PageSearchByCategories'
+import AddFundsPage from './pages/AddFundsPage'
+import WithdrawFundsPage from './pages/WithdrawFundsPage'
 
 const AppRoutes = () => {
   return (
@@ -71,6 +73,16 @@ const AppRoutes = () => {
                     <TransactionStatusPage />
                 </Layout>
             }/>
+            <Route path='/add-funds' element={
+                <Layout showHero={false}>
+                    <AddFundsPage />
+                </Layout>
+            }/>
+            <Route path='/withdraw-funds' element={
+                <Layout showHero={false}>
+                    <WithdrawFundsPage />
+                </Layout>
+            }/>
         </Route>
         <Route path='/details/:recipeId' element={
                 <Layout showHero={false}>
@@ -88,6 +100,7 @@ const AppRoutes = () => {
                 <PageSearchByCategories />
             </Layout>
         }/>
+        <Route path="*" element={<Navigate to="/" />}/>
     </Routes>
   )
 }

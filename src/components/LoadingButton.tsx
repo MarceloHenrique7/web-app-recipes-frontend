@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 const LoadingButton = () => {
   return (
     <div>
-        <Button disabled>
+        <Button disabled className="bg-emerald-800">
             <Loader2 className="mr-2 h-2 animate-spin"/>
             Loading
         </Button>
