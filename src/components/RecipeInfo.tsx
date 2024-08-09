@@ -121,7 +121,7 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
     }
 
   return (
-    <Card>
+    <Card >
         <CardHeader>
             <CardTitle className="font-bold flex flex-wrap justify-between text-4xl">
             <h1>{recipe.name}</h1>
@@ -138,10 +138,13 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
         <CardContent className="flex flex-col gap-10 w-full">
             <div className="flex flex-wrap">
                 {recipe.categories?.map((item, index) => (
-                    <span key={index} className="flex flex-wrap">
-                        <span className="text-gray-600 font-bold">{item}</span>
-                        {index < recipe.categories.length - 1 && <Dot className="text-gray-600"/>}
-                    </span>
+                    <Link to={`/search/recipe/category/${item}`} className="hover:underline hover:opacity-80">
+                        <span key={index} className="flex flex-wrap">
+                            <span className="text-gray-600 font-bold">{item}</span>
+                            {index < recipe.categories.length - 1 && <Dot className="text-gray-600"/>}
+                        </span>
+                    </Link>
+
                 ))}
             </div>
             <div className="flex gap-5 flex-wrap justify-around font-bold">
@@ -164,11 +167,15 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
                     <h1>Instructions</h1>
                 </span>
                 {recipe.instructions && recipe.instructions.map((item, index) => (
-                    <span key={index} className="flex flex-col font-bold gap-2 bg-gray-100 rounded p-5">
-                        <span className="text-2xl">{item.title}</span>
-                        <span>{item.subtitle}</span>
-                        <span className="text-gray-500">{item.description}</span>
-                    </span>
+                    <div className="flex flex-col font-bold gap-4 bg-gray-100 bg-opacity-50 rounded p-5">
+                        <span className="opacity-80 text-emerald-800">STEP {index+1}</span>
+                        <span key={index} className="flex flex-col items-center">
+                            <span className="text-2xl text-center">{item.title}</span>
+                            <span className="text-sm opacity-80">{item.subtitle}</span>
+                        </span>
+                            <span className="opacity-80">{item.description}</span>
+                    </div>
+
                 ))}
             </div>
             <div className="flex flex-col items-center gap-5 px-10">
@@ -218,7 +225,7 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
                         <Button className="self-start bg-emerald-900 font-bold hover:bg-emerald-700 transition-all ease-in-out" onClick={onLogin}>Make Log In for buy this recipe</Button>
                     )
                 ) : (
-                    <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white self-start font-bold hover:bg-emerald-900" onClick={() => handleWithSaveOnClick(recipe.id, currentUser?.id as string)}><i className={`${messageSaveChange === 'SAVE' ? 'bi-bookmark' : 'bi-bookmark-fill'}`}></i>{messageSaveChange}</span>
+                    <span className="flex cursor-pointer gap-2 bg-emerald-900 p-2 rounded-md text-white self-start font-bold hover:bg-emerald-700 transition-all ease-in-out" onClick={() => handleWithSaveOnClick(recipe.id, currentUser?.id as string)}><i className={`${messageSaveChange === 'SAVE' ? 'bi-bookmark' : 'bi-bookmark-fill'}`}></i>{messageSaveChange}</span>
                 )
                 
             }

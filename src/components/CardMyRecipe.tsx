@@ -67,10 +67,12 @@ const CardMyRecipes = ({recipe, isHomePage, isForSale}: Props) => {
         <div className="flex gap-3 flex-row flex-wrap">
           {recipe.categories.length <= 0 && <span>Don't have a category</span>}
           {recipe.categories.slice(0, 7).map((item, index) => (
-            <span key={index} className="flex">
-              <span className="text-gray-600 opacity-80">{item}</span>
-              {index < recipe.categories.length - 1 && <Dot />}
-            </span>
+            <Link to={`/search/recipe/category/${item}`} className="hover:underline hover:opacity-80">
+              <span key={index} className="flex">
+                <span className="text-gray-600 opacity-80">{item}</span>
+                {index < recipe.categories.length - 1 && <Dot />}
+              </span>
+            </Link>
           ))}
         </div>
 

@@ -40,12 +40,14 @@ const CardResultSearch = ({ recipe, isForSale }: Props) => {
                         <span>No Category</span>
                     ) :
                     (recipe.categories?.slice(0, 7).map((category, index) => (
-                        <span className="flex">
-                            <span>
-                                {category}
+                        <Link to={`/search/recipe/category/${category}`} className="hover:underline hover:opacity-80">
+                            <span className="flex">
+                                <span>
+                                    {category}
+                                </span>
+                                {index < recipe.categories.length - 1 ? <Dot/>: ""}
                             </span>
-                            {index < recipe.categories.length - 1 ? <Dot/>: ""}
-                        </span>
+                        </Link>
                     )))}
                 </div>
                 <div className="flex font-bold flex-wrap text-emerald-800 justify-between">

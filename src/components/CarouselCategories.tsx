@@ -5,6 +5,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Link } from "react-router-dom";
 
 import objectCategories from '../config/categories-config'
+import { AspectRatio } from "./ui/aspect-ratio";
 
 const CarouselCategories = () => {
     return (
@@ -13,8 +14,10 @@ const CarouselCategories = () => {
             {
                 objectCategories.map((item) => (
                     <CarouselItem className="basis-1/3 md:basis-1/5 flex flex-col items-center">
-                        <Link to={`/search/recipe/category/${item.label.toLowerCase()}`} className="flex flex-col items-center gap-2">
-                            <img src={item.src} className="object-cover w-14 h-14 md:w-20 md:h-20 rounded-full"/>
+                        <Link to={`/search/recipe/category/${item.label.toLowerCase()}`} className="flex flex-col items-center justify-center gap-12">
+                            <span className="w-[80px] h-[80px]">
+                                <img src={item.src} className="object-cover w-full h-full rounded-full"/>
+                            </span>
                             <span>
                                 {item.label}
                             </span>
