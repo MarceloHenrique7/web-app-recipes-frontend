@@ -1,18 +1,14 @@
-
-
-
 import { Bell } from "lucide-react"
-
+import { useState, useEffect } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
 import { Separator } from "./ui/separator"
-import { Badge, CircularProgress } from "@mui/material"
+import { Badge } from "@mui/material"
 import { CardHeader, CardTitle, CardDescription } from "./ui/card"
 import { useGetAllNotifications, useUpdateNotification } from "@/api/NotificationApi"
 import { useGetMyUser } from "@/api/MyUserApi"
-import { Notification, User } from "@/types"
+import { Notification } from "@/types"
 import { ScrollArea } from "./ui/scroll-area"
 import { Button } from "./ui/button"
-import TextInfoNotification from "./TextInfoNotification"
 
 
 
@@ -20,12 +16,21 @@ const NotificationSection = () => {
 
     const { updateNotification } = useUpdateNotification();
 
-    const { notifications, isLoading } = useGetAllNotifications();
+    const { notifications } = useGetAllNotifications();
+
+    const [localNotifications, setLocalNotifications] = useState<Array<Notification>>([]);
+
+    useEffect(() => {
+        if (notifications) {
+          setLocalNotifications(notifications);
+        }
+      }, [notifications]);
 
     const { currentUser } = useGetMyUser();
 
-    let myNotifications: Array<Notification> | undefined = notifications?.filter((notification) => notification.isGeneral === true || notification.recipientUserId === currentUser?.id)
-
+    let myNotifications: Array<Notification> | undefined = localNotifications?.filter(
+        (notification) => notification.isGeneral === true || notification.recipientUserId === currentUser?.id
+      );
 
     let totalNotifications = 0
     myNotifications?.forEach((notification: Notification) => {
@@ -38,12 +43,28 @@ const NotificationSection = () => {
 
     const handleOnClickMessageRead = async (notification: Notification) => {
         if (notification.readByUsers.includes(currentUser?.id as string)) {
-            return
+          return;
         }
         if (currentUser?.id) {
-            await updateNotification({notification, currentUserId: currentUser.id})
+          // Atualiza o estado local de forma otimista
+          const updatedNotifications = localNotifications?.map((n) =>
+            n.id === notification.id ? { ...n, readByUsers: [...n.readByUsers, currentUser.id as string] } : n
+          );
+          setLocalNotifications(updatedNotifications);
+      
+          // Atualiza o servidor em segundo plano
+          try {
+            await updateNotification({ notification, currentUserId: currentUser.id });
+          } catch (error) {
+            // Se a atualização falhar, reverte o estado local
+            const revertedNotifications = localNotifications?.map((n) =>
+              n.id === notification.id ? { ...n, readByUsers: n.readByUsers.filter((id) => id !== currentUser.id) } : n
+            );
+            setLocalNotifications(revertedNotifications);
+          }
         }
-    }
+      };
+      
 
     return (
         <Popover>
@@ -67,16 +88,7 @@ const NotificationSection = () => {
                                 {notification.description || ''}
                             </span>
                         </CardDescription>
-                        <Button className="p-0 underline self-start text-emerald-700" variant={"ghost"} onClick={() => handleOnClickMessageRead(notification)}>
-                            {   
-                                isLoading ? (
-                                    <CircularProgress />
-                                ) : (
-                                    <TextInfoNotification notification={notification} currentUser={currentUser as User}/>
-                                )
-  
-                            }
-                        </Button>
+                        <Button className="p-0 underline self-start text-emerald-700" variant={"ghost"} onClick={() => handleOnClickMessageRead(notification)}>{notification.readByUsers?.includes(currentUser?.id as string) ? 'Read!' : 'Mark as read'}</Button>
                         <Separator/>
                     </CardHeader>
                     

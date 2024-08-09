@@ -33,6 +33,7 @@ const SearchPage = () => {
 
   const { results, isLoading } = useSearchRecipes(searchState, recipe);
 
+  console.log(searchState, recipe)
 
   const recipesForFree = results?.data?.filter((recipe) => recipe.forSale === false && recipe.isPublic === true)
   const recipesForSale = results?.data?.filter((recipe) => recipe.forSale === true && recipe.isPublic === true)

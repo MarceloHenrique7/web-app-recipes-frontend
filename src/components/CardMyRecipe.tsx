@@ -1,7 +1,7 @@
 import { Recipe } from "@/types"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import { AspectRatio } from "./ui/aspect-ratio";
-import { Dot, Pencil, Trash2 } from "lucide-react";
+import { Beef, ChefHat, Clock1, Dot, Pencil, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
@@ -37,7 +37,7 @@ const CardMyRecipes = ({recipe, isHomePage, isForSale}: Props) => {
           <img src={recipe.imageUrl} className="rounded w-full h-full object-cover"/>
         </AspectRatio>
       <CardHeader>
-        <CardTitle className="font-bold flex flex-wrap justify-between text-2xl">
+        <CardTitle className="flex flex-wrap justify-between">
             <h1>
               {recipe.name.length >= 20 ? (
                 recipe.name.substring(0, 20)  + '...'
@@ -52,26 +52,34 @@ const CardMyRecipes = ({recipe, isHomePage, isForSale}: Props) => {
               )}
             </span>
         </CardTitle>
+        <CardDescription>
+            <p className="text-sm opacity-80">
+                {recipe.description.length >= 30 ? (
+                    recipe.description.substring(0, 30)  + '...'
+                  ) : (
+                    recipe.description
+                  )
+                }
+            </p>
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-5 flex-wrap flex-1 justify-between">
         <div className="flex gap-3 flex-row flex-wrap">
           {recipe.categories.length <= 0 && <span>Don't have a category</span>}
-          {recipe.categories.map((item, index) => (
+          {recipe.categories.slice(0, 7).map((item, index) => (
             <span key={index} className="flex">
-              <span>{item}</span>
+              <span className="text-gray-600 opacity-80">{item}</span>
               {index < recipe.categories.length - 1 && <Dot />}
             </span>
           ))}
         </div>
-        <div className="font-bold flex flex-col gap-2 ">
-          <h1>Description:</h1> 
-          <span className="text-gray-400">{recipe.description}</span>
-        </div>
-        <CardDescription className="flex flex-wrap gap-4 justify-between">
-          <span className="font-bold">Cook Time: {recipe.cookTime}</span>
-          <span className="font-bold">Prep Time: {recipe.prepTime}</span>
-          <span className="font-bold">Serving: {recipe.serving}</span>
+
+        <CardDescription className="flex font-bold flex-wrap text-emerald-800 justify-between">
+            <span className="flex items-center "><Clock1 />: {recipe.prepTime} min</span>
+            <span className="flex items-center"><ChefHat />: {recipe.cookTime} min</span>
+            <span className="flex items-center"><Beef />: {recipe.serving}</span>
         </CardDescription>
+        
       </CardContent>
       
         
@@ -103,7 +111,7 @@ const CardMyRecipes = ({recipe, isHomePage, isForSale}: Props) => {
           </div>
         ) : (
           <div className="flex justify-start gap-5 m-5">
-            <Link to={`/details/${recipe.id}`} className="bg-emerald-700 hover:bg-emerald-900 transition-all flex items-center justify-center rounded font-bold flex-1 p-2 text-white">{recipe.forSale  ? 'See More (Buy Now)': 'See More'}</Link>
+            <Link to={`/details/${recipe.id}`} className="bg-emerald-700 hover:bg-emerald-900 transition-all flex items-center justify-center rounded font-bold flex-1 p-2 text-white">{recipe.forSale  ? 'Details (Buy Now)': 'Details'}</Link>
           </div>
         )
       }

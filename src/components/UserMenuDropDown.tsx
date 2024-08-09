@@ -25,7 +25,7 @@ const UserMenuDropDown = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
             <DropdownMenuLabel>
-                    {user?.email}
+                    {user?.name}
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>

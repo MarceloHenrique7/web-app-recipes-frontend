@@ -19,8 +19,7 @@ const MyWalletPage = () => {
         return "User not found"
     }
 
-
-    console.log(transactions)
+    const myLastTransaction = transactions[0]?.createdAt as any
 
     return (
         <Card className=" flex flex-col gap-2">
@@ -41,7 +40,7 @@ const MyWalletPage = () => {
                             </h2>
                             <p className="italic flex flex-col">
                                 <span>Last Transaction</span>
-                                <span>02/07/2024</span>
+                                <span className="opacity-50">{myLastTransaction || 'No transactions yet'}</span>
                             </p>
                             
                         </div>
@@ -60,52 +59,65 @@ const MyWalletPage = () => {
                 <Carousel>
                     <CarouselContent className="font-medium text-center">
                         <CarouselItem className="basis-1/3 flex flex-col items-center">
-                            <span className="w-14 h-14 flex flex-col items-center justify-center rounded-full bg-gray-200">
-                                <Landmark />
-                            </span>
-                            <span>
-                                Add Funds
-                            </span>
+                            <Link to={"/add-founds"} className="flex flex-col items-center">
+                                <span className="w-14 h-14 flex flex-col items-center justify-center rounded-full bg-gray-200">
+                                    <Landmark />
+                                </span>
+                                <span>
+                                    Add Funds
+                                </span>
+                            </Link>
                         </CarouselItem>
                         <CarouselItem className="basis-1/3 flex flex-col items-center">
-                            <span className="w-14 h-14 flex flex-col items-center justify-center rounded-full bg-gray-200">
-                                <HandCoins />
-                            </span>
-                            <span>
-                                Withdraw Funds
-                            </span>
+                            <Link to={"/withdraw-funds"} className="flex flex-col items-center">
+                                <span className="w-14 h-14 flex flex-col items-center justify-center rounded-full bg-gray-200">
+                                    <HandCoins />
+                                </span>
+                                <span>
+                                    Withdraw Funds
+                                </span>
+                            </Link>
                         </CarouselItem>
                         <CarouselItem className="basis-1/3 flex flex-col items-center">
-                            <span className="w-14 h-14 flex flex-col items-center justify-center rounded-full bg-gray-200" >
-                                <Handshake />
-                            </span>
-                            <span>
-                                Transfer Funds
-                            </span>
+                            <Link to={"/tranfer-funds"} className="flex flex-col items-center">
+                                <span className="w-14 h-14 flex flex-col items-center justify-center rounded-full bg-gray-200" >
+                                    <Handshake />
+                                </span>
+                                <span>
+                                    Transfer Funds
+                                </span>
+                            </Link>
                         </CarouselItem>
                         <CarouselItem className="basis-1/3 flex flex-col items-center">
-                            <span className="w-14 h-14 flex flex-col items-center justify-center rounded-full bg-gray-200">
-                                <Smartphone />
-                            </span>
-                            <span>
-                                Recharge
-                            </span>
+                            <Link to={"/"} className="flex flex-col items-center">
+                                <span className="w-14 h-14 flex flex-col items-center justify-center rounded-full bg-gray-200">
+                                    <Smartphone />
+                                </span>
+                                <span>
+                                    Recharge
+                                </span>
+                            </Link>
                         </CarouselItem>
                         <CarouselItem className="basis-1/3 flex flex-col items-center">
-                            <span className="w-14 h-14 flex flex-col items-center justify-center rounded-full bg-gray-200">
-                                <Banknote />
-                            </span>
-                            <span>
-                                Demands
-                            </span>
+                            <Link to={"/"} className="flex flex-col items-center">
+                                <span className="w-14 h-14 flex flex-col items-center justify-center rounded-full bg-gray-200">
+                                    <Banknote />
+                                </span>
+                                <span>
+                                    Demands
+                                </span>
+                            </Link>
                         </CarouselItem>
                         <CarouselItem className="basis-1/3 flex flex-col items-center">
-                            <span className="w-14 h-14 flex flex-col items-center justify-center rounded-full bg-gray-200">
-                                <QrCode />
-                            </span>
-                            <span>
-                                QrCode
-                            </span>
+                            <Link to={"/"} className="flex flex-col items-center">
+
+                                <span className="w-14 h-14 flex flex-col items-center justify-center rounded-full bg-gray-200">
+                                    <QrCode />
+                                </span>
+                                <span>
+                                    QrCode
+                                </span>
+                            </Link>
                         </CarouselItem>
                     </CarouselContent>
                 </Carousel>

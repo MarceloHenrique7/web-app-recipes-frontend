@@ -16,11 +16,11 @@ const CardResultSearch = ({ recipe, isForSale }: Props) => {
   return (
     <Link to={`/details/${recipe.id}`}>
     
-        <Card>
+        <Card className="h-full w-full flex flex-col justify-between">
             <AspectRatio ratio={16/6}>
                 <img src={recipe.imageUrl} className="rounded object-cover w-full h-full"/>
             </AspectRatio>
-            <CardHeader>
+            <CardHeader className="flex flex-1">
                 <CardTitle className="flex flex-wrap justify-between">
                     {recipe.name}
                     <span>
@@ -33,13 +33,13 @@ const CardResultSearch = ({ recipe, isForSale }: Props) => {
                     {recipe.description}
                 </CardDescription>
             </CardHeader>
-            <CardContent className="flex flex-col gap-5">
-                <div className="flex flex-row flex-wrap">
+            <CardContent className="flex flex-col  gap-5">
+                <div className="flex flex-row flex-wrap flex-1 ">
                     {
                     recipe.categories?.length === 0 ? (
-                        <span>No Category Found</span>
+                        <span>No Category</span>
                     ) :
-                    (recipe.categories?.map((category, index) => (
+                    (recipe.categories?.slice(0, 7).map((category, index) => (
                         <span className="flex">
                             <span>
                                 {category}

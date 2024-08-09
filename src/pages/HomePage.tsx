@@ -5,6 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import SearchBar, { SearchForm } from "@/components/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import CarouselCategories from "@/components/CarouselCategories";
 
 const HomePage = () => {
 
@@ -13,9 +14,7 @@ const HomePage = () => {
     const navigate = useNavigate()
 
     const handleSearchSubmit = (searchFormValues: SearchForm) => {
-        navigate({
-            pathname:`/search/recipe/${searchFormValues.searchQuery}`
-        })
+        navigate(`/search/recipe/${searchFormValues.searchQuery}`)
     }
     
 
@@ -40,7 +39,7 @@ const HomePage = () => {
 
     
     return (
-        <Tabs defaultValue="free-recipes">
+        <Tabs defaultValue="free-recipes" className="flex flex-col gap-10">
             <div className="font-bold text-center text-4xl">
                 <h1>Recent <span className="text-emerald-900 tracking-wide">Recipes</span></h1>
             </div>
@@ -49,7 +48,11 @@ const HomePage = () => {
                     Search for a recipe
                 </span>
                 <SearchBar placeHolder="Search by Recipe" onSubmit={handleSearchSubmit} />
-            </div>     
+            </div>
+            <div className="flex flex-col items-center gap-10">
+                <h1 className="font-bold text-4xl opacity-80 text-center">Categories</h1>
+                <CarouselCategories />
+            </div>
             <TabsList className="w-full flex items-center justify-between">
                 <TabsTrigger value="free-recipes" className="w-full">
                     Recipes Free

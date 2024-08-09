@@ -34,7 +34,6 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
           if (isAuthenticated && currentUser && recipe) {
             const exists = currentUser.savedRecipes.includes(recipe.id);
             if (exists) {
-                console.log("CAIU AQUI")
               setMessageSaveChange("UNSAVE");
             }
           }

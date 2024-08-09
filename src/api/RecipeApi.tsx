@@ -9,7 +9,7 @@ export const useSearchRecipes = (searchState: SearchState, recipe?: string) => {
     const createSearchRequest = async (): Promise<RecipeSearchResponse> => {
         const params = new URLSearchParams()
 
-        params.set("searchQuery",searchState.searchQuery)
+        params.set("searchQuery", searchState.searchQuery)
         params.set("selectedCategories", searchState.selectedCategories.join(''))
         params.set("page", searchState.page.toString())
         params.set("sortOption", searchState.sortOption)

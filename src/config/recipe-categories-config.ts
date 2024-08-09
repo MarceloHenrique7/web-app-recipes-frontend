@@ -29,7 +29,7 @@ export const categoriesList = [
     "Pâté",
     "Spring Rolls",
     "Dumplings",
-
+    "Fit"
 ]
 
 

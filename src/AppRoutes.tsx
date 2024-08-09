@@ -15,6 +15,7 @@ import TransactionStatusPage from './pages/TransactionStatusPage'
 import AdminApp from './AdminApp'
 import ProtectedRouteAdmin from './auth/ProtectedRouteAdmin'
 import RecipesSaved from './pages/RecipesSavedPage'
+import PageSearchByCategories from './pages/PageSearchByCategories'
 
 const AppRoutes = () => {
   return (
@@ -80,6 +81,11 @@ const AppRoutes = () => {
         <Route path='/search/recipe/:recipe' element={
             <Layout showHero={false}>
                 <SearchPage />
+            </Layout>
+        }/>
+        <Route path='/search/recipe/category/:category' element={
+            <Layout showHero={false}>
+                <PageSearchByCategories />
             </Layout>
         }/>
     </Routes>
