@@ -1,6 +1,5 @@
 import {Admin, Resource} from 'react-admin'
 
-import authProvider from './authProvider';
 import dataProvider from "./dataProvider";
 
 import UserList from "./components-admin/UserList";

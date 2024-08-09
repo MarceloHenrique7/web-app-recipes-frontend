@@ -1,11 +1,8 @@
 import { Recipe } from "@/types"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import { AspectRatio } from "./ui/aspect-ratio";
-import { Dot, Pencil, Trash2 } from "lucide-react";
+import { Dot } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Label } from "./ui/label";
 import { useDeleteMyRecipe } from "@/api/MyRecipeApi";
 
 
