@@ -42,7 +42,7 @@ const HomePage = () => {
     }
 
     return (
-        <Tabs defaultValue="free-recipes" className="flex flex-col items-center gap-10">
+        <Tabs defaultValue="free-recipes" className="flex flex-col items-center justify-center gap-10">
             <div className="font-bold text-center text-4xl">
                 <h1>Recent <span className="text-emerald-900 tracking-wide">Recipes</span></h1>
             </div>
@@ -52,7 +52,10 @@ const HomePage = () => {
                 </span>
                 <SearchBar placeHolder="Search by Recipe" onSubmit={handleSearchSubmit} />
             </div>
-            <CarouselCategories />
+            <div className="flex flex-col items-center gap-8">
+                <h1 className="font-bold text-3xl">Search By Category</h1>
+                <CarouselCategories />
+            </div>
             <TabsList className="w-full flex items-center justify-between">
                 <TabsTrigger value="free-recipes" className="w-full">
                     Recipes Free

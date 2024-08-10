@@ -1,15 +1,13 @@
 
 
 
-import { Carousel, CarouselContent } from "@/components/ui/carousel";
 import { Link } from "react-router-dom";
 
 import objectCategories from '../config/categories-config'
 
 const CarouselCategories = () => {
     return (
-        <Carousel className="w-full md:w-full">
-            <CarouselContent className="font-medium text-center flex gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-3">
             {
                 objectCategories.map((item) => (
                         <Link to={`/search/recipe/category/${item.label.toLowerCase()}`} className="flex flex-col items-center justify-center gap-2" >
@@ -20,11 +18,9 @@ const CarouselCategories = () => {
                                 {item.label}
                             </span>
                         </Link>
-
                 ))
             }
-        </CarouselContent>
-    </Carousel>
+        </div>
     )
 }
 
