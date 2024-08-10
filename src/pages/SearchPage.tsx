@@ -2,7 +2,7 @@ import { useSearchRecipes } from "@/api/RecipeApi";
 import CategoryFilter from "@/components/CategoryFilter";
 import SearchResultsInfo from "@/components/SearchResultsInfo";
 import SearchBar, { SearchForm } from "@/components/SearchBar";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import DropDownOption from "@/components/DropDownOption";
 import CardResultSearch from "@/components/CardResultSearch";
@@ -35,9 +35,16 @@ const SearchPage = () => {
 
   console.log(searchState, recipe)
 
-  const recipesForFree = results?.data?.filter((recipe) => recipe.forSale === false && recipe.isPublic === true)
-  const recipesForSale = results?.data?.filter((recipe) => recipe.forSale === true && recipe.isPublic === true)
 
+  const recipesForSale = useMemo(() => 
+    results?.data?.filter((recipe) => recipe.forSale === true && recipe.isPublic === true), 
+    [results]
+);
+  
+  const recipesForFree = useMemo(() => 
+    results?.data?.filter((recipe) => recipe.forSale === false && recipe.isPublic === true), 
+    [results]
+);
 
   const [isExpanded, setIsExpanded] = useState<boolean>(false)
 

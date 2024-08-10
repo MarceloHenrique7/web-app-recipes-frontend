@@ -12,16 +12,16 @@ const CarouselCategories = () => {
             <CarouselContent className="font-medium text-center">
             {
                 objectCategories.map((item) => (
-                    <CarouselItem key={item.label} className="md:basis-1/3 flex flex-col items-center">
                         <Link to={`/search/recipe/category/${item.label.toLowerCase()}`} className="flex flex-col items-center justify-center gap-2">
-                            <span className="w-[180px] h-[180px]">
+                        <CarouselItem key={item.label} className="md:basis-1/3 flex flex-col items-center">
+                            <span className="w-[80px] h-[80px]">
                                 <img src={item.src} alt={item.label} className="object-cover w-full h-full rounded-full"/>
                             </span>
-                            <span className="font-bold text-2xl">
+                            <span className="font-bold text-sm">
                                 {item.label}
                             </span>
+                        </CarouselItem>
                         </Link>
-                    </CarouselItem>
                 ))
             }
         </CarouselContent>
