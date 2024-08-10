@@ -39,7 +39,7 @@ const Hero = () => {
           <div className="p-5 h-full bg-gradient-to-r from-emerald-500 to-black-500">
             <div className="h-full flex flex-wrap flex-row items-center justify-around">
               <h1 className={`${commonTextStyles}`}>Special Offer</h1>
-              <img src={person} alt="Person" className="max-w-[200px] max-h-[200px]" />
+              <img src={person} alt="Person" width="200" height="200" className="max-w-[200px] max-h-[200px]" />
             </div>
           </div>
         </CarouselItem>

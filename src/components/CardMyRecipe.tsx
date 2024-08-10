@@ -25,7 +25,12 @@ const CardMyRecipes = ({ recipe, isHomePage, isForSale }: Props) => {
     return (
         <Card key={recipe.id} className="h-full w-full flex flex-col justify-between">
             <AspectRatio ratio={16 / 6}>
-                <img src={recipe.imageUrl} alt={recipe.name} className="rounded w-full h-full object-cover" />
+                <img src={recipe.imageUrl} 
+                    width="1600" 
+                    height="600" 
+                    alt={recipe.name}
+                    loading="lazy"
+                    className="rounded w-full h-full object-cover" />
             </AspectRatio>
             <CardHeader>
                 <CardTitle className="flex flex-wrap justify-between">
