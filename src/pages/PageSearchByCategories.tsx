@@ -1,6 +1,5 @@
 import { useGetAllRecipes } from "@/api/MyRecipeApi";
 import CardMySavedRecipes from "@/components/CardMySavedRecipes";
-import CardResultSearch from "@/components/CardResultSearch";
 import { useParams } from "react-router-dom";
 
 
