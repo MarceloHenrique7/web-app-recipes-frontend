@@ -5,7 +5,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import SearchBar, { SearchForm } from "@/components/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import CarouselCategories from "@/components/CarouselCategories";
 import { useMemo } from "react";
 
 const HomePage = () => {
@@ -52,10 +51,7 @@ const HomePage = () => {
                 </span>
                 <SearchBar placeHolder="Search by Recipe" onSubmit={handleSearchSubmit} />
             </div>
-            <div className="flex flex-col items-center gap-8">
-                <h1 className="font-bold text-3xl">Search By Category</h1>
-                <CarouselCategories />
-            </div>
+
             <TabsList className="w-full flex items-center justify-between">
                 <TabsTrigger value="free-recipes" className="w-full">
                     Recipes Free
