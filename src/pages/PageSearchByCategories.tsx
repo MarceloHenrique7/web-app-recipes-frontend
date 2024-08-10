@@ -1,4 +1,5 @@
 import { useGetAllRecipes } from "@/api/MyRecipeApi";
+import CardMySavedRecipes from "@/components/CardMySavedRecipes";
 import CardResultSearch from "@/components/CardResultSearch";
 import { useParams } from "react-router-dom";
 
@@ -33,7 +34,7 @@ const PageSearchByCategories = () => {
             <div className="flex flex-col gap-10">
                 {
                     recipesFilter.map((recipe) => (
-                        <CardResultSearch recipe={recipe} isForSale={true}/>
+                        <CardMySavedRecipes isHomePage={false} recipe={recipe} isForSale={true}/>
                     ))
                 }
             </div>

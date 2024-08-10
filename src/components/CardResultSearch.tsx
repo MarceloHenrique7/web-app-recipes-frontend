@@ -15,9 +15,8 @@ const CardResultSearch = ({ recipe, isForSale }: Props) => {
 
   return (
     <Link to={`/details/${recipe.id}`}>
-    
         <Card className="h-full w-full flex flex-col justify-between">
-            <AspectRatio ratio={16/6}>
+            <AspectRatio ratio={16/9}>
                 <img src={recipe.imageUrl} className="rounded object-cover w-full h-full"/>
             </AspectRatio>
             <CardHeader className="flex flex-1">

@@ -124,7 +124,7 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
     <Card >
         <CardHeader>
             <CardTitle className="font-bold flex flex-wrap justify-between text-4xl">
-            <h1>{recipe.name}</h1>
+            <h1 className="flex flex-wrap">{recipe.name}</h1>
             <span>
               {isForSale && (
                 `$ ${recipe.price.toFixed(2).replace('.', ',')}`
@@ -152,21 +152,30 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
                 <span>Cook Time: {recipe.cookTime} Min</span>
                 <span>Serving: {recipe.serving} Min</span>
             </div>
-            <div className="flex flex-col gap-5">
-                <span className="text-gray-900 text-3xl font-bold">
-                    <h1>Ingredients</h1>
-                </span>
-                {recipe.ingredients && recipe.ingredients.map((item, index) => (
-                    <span key={index} className="flex flex-col gap-2 p-5 rounded bg-gray-100 font-bold ">
-                        <span className="text-sm">{index + 1}. {item.name} -  {item.quantity} {item.unit}</span>
+            
+            {isForSale ? (
+                <div>
+                    <h1 className="font-bold bg-gray-800 rounded-full p-3 text-center text-white">
+                        Buy this recipe for more details.
+                    </h1>
+                </div>
+            ) : (
+                <>
+                    <div className="flex flex-col gap-5">
+                    <span className="text-gray-900 text-3xl font-bold">
+                        <h1>Ingredients</h1>
                     </span>
-                ))}
-            </div>
-            <div className="flex flex-col gap-10">
-                <span className="text-gray-900 text-3xl font-bold">
-                    <h1>Instructions</h1>
-                </span>
-                {recipe.instructions && recipe.instructions.map((item, index) => (
+                        {recipe.ingredients && recipe.ingredients.map((item, index) => (
+                            <span key={index} className="flex flex-col gap-2 p-5 rounded bg-gray-100 font-bold ">
+                                <span className="text-sm">{index + 1}. {item.name} -  {item.quantity} {item.unit}</span>
+                            </span>
+                        ))}
+                    </div>
+                    <div className="flex flex-col gap-10">
+                        <span className="text-gray-900 text-3xl font-bold">
+                            <h1>Instructions</h1>
+                    </span>
+                    {recipe.instructions && recipe.instructions.map((item, index) => (
                     <div className="flex flex-col font-bold gap-4 bg-gray-100 bg-opacity-50 rounded p-5">
                         <span className="opacity-80 text-emerald-800">STEP {index+1}</span>
                         <span key={index} className="flex flex-col items-center">
@@ -176,25 +185,29 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
                             <span className="opacity-80">{item.description}</span>
                     </div>
 
-                ))}
-            </div>
-            <div className="flex flex-col items-center gap-5 px-10">
-                <span className="text-gray-900 text-3xl font-bold">
-                    <h1>Nutrients</h1>
-                </span>
-                {recipe.nutrients?.map((item, index) => (
-                    <div key={index} className="w-full font-bold flex flex-col items-center gap-5 justify-center gap-2">
-                        <div className="w-full flex justify-between">
-                            <span>Calories: {item.calories}</span>
-                            <span>Carbohydrate: {item.carbohydrate}</span>
+                    ))}
+                </div>
+                    <div className="flex flex-col items-center gap-5 px-10">
+                        <span className="text-gray-900 text-3xl font-bold">
+                            <h1>Nutrients</h1>
+                        </span>
+                        {recipe.nutrients?.map((item, index) => (
+                        <div key={index} className="w-full font-bold flex flex-col items-center gap-5 justify-center gap-2">
+                            <div className="w-full flex justify-between">
+                                <span>Calories: {item.calories}</span>
+                                <span>Carbohydrate: {item.carbohydrate}</span>
+                            </div>
+                            <div className="w-full flex justify-between">
+                                <span>Protein: {item.protein}</span>
+                                <span>Fat: {item.fat}</span>
+                            </div>
                         </div>
-                        <div className="w-full flex justify-between">
-                            <span>Protein: {item.protein}</span>
-                            <span>Fat: {item.fat}</span>
-                        </div>
+                    ))}
                     </div>
-                ))}
-            </div>
+                </>
+            )
+        }
+
             {
                 isForSale ? (
                     isAuthenticated ? (
