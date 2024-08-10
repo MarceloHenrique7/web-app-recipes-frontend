@@ -25,12 +25,12 @@ const CardMyRecipes = ({ recipe, isHomePage, isForSale }: Props) => {
     return (
         <Card key={recipe.id} className="h-full w-full flex flex-col justify-between">
             <AspectRatio ratio={16 / 6}>
-                <img src={recipe.imageUrl} 
+                <img src={recipe.imageUrl}
+                 alt={recipe.name}
+                    className="rounded w-full h-full object-cover"
                     width="1600" 
                     height="600" 
-                    alt={recipe.name}
-                    loading="lazy"
-                    className="rounded w-full h-full object-cover" />
+                    loading="lazy" />
             </AspectRatio>
             <CardHeader>
                 <CardTitle className="flex flex-wrap justify-between">
@@ -47,10 +47,12 @@ const CardMyRecipes = ({ recipe, isHomePage, isForSale }: Props) => {
                 <div className="flex gap-3 flex-wrap">
                     {recipe.categories.length === 0 && <span>Don't have a category</span>}
                     {recipe.categories.slice(0, 7).map((item, index) => (
-                        <span className="flex">
-                            <span className="text-gray-600 opacity-80">{item}</span>
-                            {index < recipe.categories.length - 1 && <Dot />}
-                        </span>
+                        <Link key={index} to={`/search/recipe/category/${item}`} className="hover:underline hover:opacity-80">
+                            <span className="flex">
+                                <span className="text-gray-600 opacity-80">{item}</span>
+                                {index < recipe.categories.length - 1 && <Dot />}
+                            </span>
+                        </Link>
                     ))}
                 </div>
                 <CardDescription className="flex font-bold text-emerald-800 justify-between">
