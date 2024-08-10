@@ -1,49 +1,40 @@
-import fitImage  from '../assets/images-categories/Fit.jpg'
-import appetizersImage  from '../assets/images-categories/appetizers.jpg'
-import breakfastImage  from '../assets/images-categories/breakfast.jpg'
-import dinnerImage  from '../assets/images-categories/dinner.jpg'
-import lunchImage  from '../assets/images-categories/lunch.jpg'
-import pizzaImage  from '../assets/images-categories/pizza.jpg'
-import sandwichsImage  from '../assets/images-categories/sandwichs.jpg'
-import snacksImage  from '../assets/images-categories/snacks.jpg'
-import soupsImage  from '../assets/images-categories/soups.jpg'
 
 const objectCategories = [
     {
         label: "Fit",
-        src: fitImage,
+        src: "https://res.cloudinary.com/dddayyvvu/image/upload/v1723302813/categories-web-recipes/Fit_jcwjce.jpg",
     },
     {
         label: "Appetizers",
-        src: appetizersImage
+        src: "https://res.cloudinary.com/dddayyvvu/image/upload/v1723302813/categories-web-recipes/appetizers_evmei7.jpg"
     },
     {
         label: "Breakfast",
-        src: breakfastImage
+        src: "https://res.cloudinary.com/dddayyvvu/image/upload/v1723302814/categories-web-recipes/breakfast_jojm2c.jpg"
     },
     {
         label: "Dinner",
-        src: dinnerImage
+        src: "https://res.cloudinary.com/dddayyvvu/image/upload/v1723302813/categories-web-recipes/dinner_viqqyd.jpg"
     },
     {
         label: "Lunch",
-        src: lunchImage
+        src: "https://res.cloudinary.com/dddayyvvu/image/upload/v1723302814/categories-web-recipes/lunch_ef8kl6.jpg"
     },
     {
         label: "Pizza",
-        src: pizzaImage
+        src: "https://res.cloudinary.com/dddayyvvu/image/upload/v1723302814/categories-web-recipes/pizza_q4cpom.jpg"
     },
     {
         label: "Sandwiches",
-        src: sandwichsImage
+        src: "https://res.cloudinary.com/dddayyvvu/image/upload/v1723302814/categories-web-recipes/sandwichs_uokcqj.jpg"
     },
     {
         label: "Snacks",
-        src: snacksImage
+        src: "https://res.cloudinary.com/dddayyvvu/image/upload/v1723302814/categories-web-recipes/snacks_iildkl.jpg"
     },
     {
         label: "Soups",
-        src: soupsImage
+        src: "https://res.cloudinary.com/dddayyvvu/image/upload/v1723302814/categories-web-recipes/soups_zzusly.jpg"
     },
 ]
 
