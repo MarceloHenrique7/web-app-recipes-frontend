@@ -5,7 +5,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import SearchBar, { SearchForm } from "@/components/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import CarouselCategories from "@/components/CarouselCategories";
 import { useMemo } from "react";
 
 const HomePage = () => {
