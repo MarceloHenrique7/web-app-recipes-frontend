@@ -124,7 +124,7 @@ const MyWalletPage = () => {
                 </Carousel>
                 <div className="flex flex-col items-center gap-5">
                     <div>
-                        <h1 className="font-bold text-2xl text-emerald-600">History Of Payments</h1>
+                        <h1 className="font-bold text-2xl text-emerald-600">History Of Transactions</h1>
                     </div>
                     <div className="overflow-x-auto max-w-full">
                         <Table>
