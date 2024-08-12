@@ -64,7 +64,7 @@ const HomePage = () => {
                 <div className="flex flex-1 flex-col items-center gap-20">
                     <div className="w-full self-center grid gap-10 md:grid-cols-2 lg:grid-cols-3">
                         {recipesForFree?.map((recipe, index) => (
-                            <CardMyRecipes key={index} isForSale={false} isHomePage={true} recipe={recipe} />
+                            <CardMyRecipes isRecipePurchase={false} key={index} isForSale={false} isHomePage={true} recipe={recipe} />
                         ))}
                     </div>
                 </div>
@@ -73,7 +73,7 @@ const HomePage = () => {
                 <div className="flex flex-1 flex-col items-center gap-20">
                     <div className="w-full self-center grid gap-10 md:grid-cols-2 lg:grid-cols-3">
                         {recipesForSale?.map((recipe, index) => (
-                            <CardMyRecipes isForSale={true} key={index} isHomePage={true} recipe={recipe} />
+                            <CardMyRecipes isRecipePurchase={false} isForSale={true} key={index} isHomePage={true} recipe={recipe} />
                         ))}
                     </div>
                 </div>
