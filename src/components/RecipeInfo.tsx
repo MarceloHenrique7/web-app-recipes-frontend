@@ -4,7 +4,7 @@ import {  ArrowRight, Dot, ShoppingCart } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
-import { useCreateCheckoutSession } from "@/api/MyTransactionApi";
+import { useCreateCheckoutSession, useGetMyTransaction } from "@/api/MyTransactionApi";
 import { useGetMyUser } from "@/api/MyUserApi";
 import LoadingButton from "./LoadingButton";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -25,7 +25,15 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
     const { pathname } = useLocation()
     const { createNotification } = useCreateNotification()
     const { deleteNotification } = useDeleteNotification()
-    
+    const { transactions, isLoading: transactionIsLoading } = useGetMyTransaction()
+
+    if (transactionIsLoading) {
+        "Loading"
+    }
+
+
+    const recipeIsPurchased = transactions?.some((transaction) => transaction.recipeId === recipe.id)
+    const recipeIsMine = recipe.userId === currentUser?.id
     const [messageSaveChange, setMessageSaveChange] = useState('SAVE')
 
 
@@ -122,8 +130,8 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
 
   return (
     <Card >
-        <CardHeader>
-            <CardTitle className="font-bold flex flex-wrap justify-between text-4xl">
+        <CardHeader className="flex gap-5">
+            <CardTitle className="font-bold flex flex-wrap justify-between text-xl">
             <h1 className="flex flex-wrap">{recipe.name}</h1>
             <span>
               {isForSale && (
@@ -147,13 +155,13 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
 
                 ))}
             </div>
-            <div className="flex gap-5 flex-wrap justify-around font-bold">
+            <div className="flex gap-5 flex-wrap justify-around">
                 <span>Prep Time: {recipe.prepTime} Min</span>
                 <span>Cook Time: {recipe.cookTime} Min</span>
                 <span>Serving: {recipe.serving} Min</span>
             </div>
             
-            {isForSale ? (
+            {!recipeIsPurchased && !recipeIsMine ? (
                 <div>
                     <h1 className="font-bold bg-gray-800 rounded-full p-3 text-center text-white">
                         Buy this recipe for more details.

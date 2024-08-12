@@ -18,11 +18,11 @@ const DetailsRecipe = () => {
     }
 
   return (
-    <div className="flex flex-col gap-10  items-center justify-center ">
+    <div className="flex flex-col gap-10 items-center justify-center ">
       <AspectRatio ratio={16/9} >
         <img src={recipe.imageUrl} className="rounded object-cover h-full w-full"/>
       </AspectRatio>
-      <div className="max-w-[1200px]">
+      <div >
         <RecipeInfo recipe={recipe} isForSale={recipe.forSale}/>
       </div>
     </div>

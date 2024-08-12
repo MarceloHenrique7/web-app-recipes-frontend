@@ -46,7 +46,7 @@ export const useGetAllRecipes = () => {
     }
 
 
-    const { data: recipes, isLoading, error } = useQuery("fetchMyRecipe", getAllRecipeRequest, { refetchInterval: 5000 })
+    const { data: recipes, isLoading, error } = useQuery("fetchAllRecipes", getAllRecipeRequest, { refetchInterval: 5000 })
 
 
     return { recipes, isLoading, error }

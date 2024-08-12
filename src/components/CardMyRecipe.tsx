@@ -11,9 +11,10 @@ type Props = {
     recipe: Recipe;
     isHomePage: boolean;
     isForSale: boolean;
+    isRecipePurchase: boolean;
 };
 
-const CardMyRecipes = ({ recipe, isHomePage, isForSale }: Props) => {
+const CardMyRecipes = ({ recipe, isHomePage, isForSale, isRecipePurchase }: Props) => {
     const { deleteRecipe, isLoading } = useDeleteMyRecipe();
 
     const handleClickDeleteRecipe = async () => {
@@ -65,7 +66,7 @@ const CardMyRecipes = ({ recipe, isHomePage, isForSale }: Props) => {
                 <Link to={`/details/${recipe.id}`} className="bg-emerald-700 hover:bg-emerald-900 transition-all flex items-center justify-center rounded font-bold flex-1 p-2 text-white">
                     {isHomePage ? (recipe.forSale ? 'Details (Buy Now)' : 'Details') : 'Details'}
                 </Link>
-                {!isHomePage && (
+                {!isHomePage && !isRecipePurchase && (
                     <>
                         <Link to={`/update/${recipe.id}`} className="bg-emerald-700 hover:bg-emerald-900 p-2 rounded text-white">
                             <Pencil />

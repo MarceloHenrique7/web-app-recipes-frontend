@@ -136,20 +136,24 @@ export const useCreateCheckoutSession = () => {
         })
 
         if (!response.ok) {
-            throw new Error("Unable to create checkout session")
+            const errorResponse = await response.json()
+            throw new Error(errorResponse.message || "Fetch request is BAD")
         }
 
         return response.json()
     }
     
 
-    const { mutateAsync: createCheckoutSession, isLoading, error, reset } = useMutation(createCheckoutSessionRequest)
+    const { mutateAsync: createCheckoutSession, isLoading } = useMutation(createCheckoutSessionRequest, {
+        onSuccess: () => {
+            toast.success("Approved transaction")
+        },
+        onError: (error: any) => {
+            toast.error(error.message || "An error occurred")
+        }
+    })
 
 
-    if (error) {
-        toast.error(error.toString())
-        reset()
-    }
 
     return { createCheckoutSession, isLoading }
 }
