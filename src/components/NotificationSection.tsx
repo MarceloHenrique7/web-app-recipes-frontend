@@ -75,8 +75,8 @@ const NotificationSection = () => {
         </PopoverTrigger>
         <PopoverContent >
             <ScrollArea className="h-96 w-full rounded-md border">
-                {myNotifications?.length !== 0 ? myNotifications?.map((notification) => (
-                    <CardHeader className="bg-gray-100 rounded p-5">
+                {myNotifications?.length !== 0 ? myNotifications?.map((notification, index) => (
+                    <CardHeader key={index} className="bg-gray-100 rounded p-5">
                         <CardTitle>
                             {notification.title || ''}
                         </CardTitle>

@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useGetMyUser } from "@/api/MyUserApi";
 import { useGetMyTransaction } from "@/api/MyTransactionApi";
+import { useGetMyWallet } from "@/api/MyWalletApi";
 const MyWalletPage = () => {
 
     const { transactions, isLoading: transactionIsLoading } = useGetMyTransaction()
     const { currentUser, isLoading } = useGetMyUser()
+    const { wallet, isLoading: walletIsLoading } = useGetMyWallet()
 
-
-    if (isLoading || transactionIsLoading) {
+    if (isLoading || transactionIsLoading || walletIsLoading) {
         return "Loading...."
     }
 
@@ -35,7 +36,7 @@ const MyWalletPage = () => {
                                    Balance <Wallet size={30} />
                                 </span>
                                 <span>
-                                    $ {currentUser.wallet?.balance.toFixed(2).replace('.', ',')}
+                                    $ {wallet?.balance.toFixed(2).replace('.', ',')}
                                 </span>
                             </h2>
                             <p className="italic flex flex-col">
@@ -79,7 +80,7 @@ const MyWalletPage = () => {
                             </Link>
                         </CarouselItem>
                         <CarouselItem className="basis-1/3 flex flex-col items-center">
-                            <Link to={"/tranfer-funds"} className="flex flex-col items-center">
+                            <Link to={"/transfer-funds"} className="flex flex-col items-center">
                                 <span className="w-14 h-14 flex flex-col items-center justify-center rounded-full bg-gray-200" >
                                     <Handshake />
                                 </span>
@@ -142,18 +143,20 @@ const MyWalletPage = () => {
                                     <TableHead>Amount</TableHead>
                                     <TableHead>Currency</TableHead>
                                     <TableHead>Type</TableHead>
+                                    <TableHead>Direction</TableHead> 
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {
-                                    transactions && transactions.map((transaction) => (
-                                        <TableRow className="text-center">
+                                    transactions && transactions.map((transaction, index) => (
+                                        <TableRow key={index} className="text-center">
                                             <TableCell>{transaction.id.slice(-4).toLocaleUpperCase()}</TableCell>
-                                            <TableCell className="text-emerald-600">{transaction.status}</TableCell>
+                                            <TableCell className="text-emerald-600 font-bold">{transaction.status}</TableCell>
                                             <TableCell>{transaction.method}</TableCell>
                                             <TableCell>$ {transaction.amount}</TableCell>
                                             <TableCell>{transaction.currency}</TableCell>
                                             <TableCell>{transaction.transactionType}</TableCell>
+                                            <TableCell className="text-emerald-600 font-bold">{transaction.direction === 'INBOUND' ? 'Receive' : 'Sent'}</TableCell>
                                         </TableRow>
                                     ))
                                 }

@@ -42,16 +42,16 @@ const HomePage = () => {
 
     return (
         <Tabs defaultValue="free-recipes" className="flex flex-col items-center justify-center gap-10">
-            <div className="font-bold text-center text-4xl">
-                <h1>Recent <span className="text-emerald-900 tracking-wide">Recipes</span></h1>
-            </div>
+
             <div className="flex flex-col w-full items-center bg-white rounded-lg py-8 gap-5 text-center">
                 <span className="font-bold text-gray-800 text-xl">
                     Search for a recipe
                 </span>
                 <SearchBar placeHolder="Search by Recipe" onSubmit={handleSearchSubmit} />
             </div>
-
+            <div className="font-bold text-center text-4xl">
+                <h1>Recent <span className="text-emerald-900 tracking-wide">Recipes</span></h1>
+            </div>
             <TabsList className="w-full flex items-center justify-between">
                 <TabsTrigger value="free-recipes" className="w-full">
                     Recipes Free

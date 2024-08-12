@@ -18,6 +18,7 @@ import RecipesSaved from './pages/RecipesSavedPage'
 import PageSearchByCategories from './pages/PageSearchByCategories'
 import AddFundsPage from './pages/AddFundsPage'
 import WithdrawFundsPage from './pages/WithdrawFundsPage'
+import TransferFundsPage from './pages/TranferFundsPage'
 
 const AppRoutes = () => {
   return (
@@ -81,6 +82,11 @@ const AppRoutes = () => {
             <Route path='/withdraw-funds' element={
                 <Layout showHero={false}>
                     <WithdrawFundsPage />
+                </Layout>
+            }/>
+            <Route path='/transfer-funds' element={
+                <Layout showHero={false}>
+                    <TransferFundsPage />
                 </Layout>
             }/>
         </Route>

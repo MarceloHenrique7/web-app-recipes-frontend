@@ -58,6 +58,8 @@ export interface Transaction {
     method: string;
     amount: number;
     currency: string;
+    direction: string;
+    recipientUserId: string;
     transactionType: TransactionType,
     createdAt?: Date,
     updatedAt?: Date,

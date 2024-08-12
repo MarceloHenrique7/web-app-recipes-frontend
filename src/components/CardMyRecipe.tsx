@@ -33,7 +33,7 @@ const CardMyRecipes = ({ recipe, isHomePage, isForSale, isRecipePurchase }: Prop
                     height="600" 
                     loading="lazy" />
             </AspectRatio>
-            <CardHeader>
+            <CardHeader className="flex flex-1">
                 <CardTitle className="flex flex-wrap justify-between">
                     <h1>{recipe.name.length > 20 ? `${recipe.name.substring(0, 20)}...` : recipe.name}</h1>
                     {isForSale && <span>{`$ ${recipe.price.toFixed(2).replace('.', ',')}`}</span>}
@@ -44,7 +44,7 @@ const CardMyRecipes = ({ recipe, isHomePage, isForSale, isRecipePurchase }: Prop
                     </p>
                 </CardDescription>
             </CardHeader>
-            <CardContent className="flex flex-col gap-5 flex-1">
+            <CardContent className="flex flex-1 flex-col gap-5 flex-1">
                 <div className="flex gap-3 flex-wrap">
                     {recipe.categories.length === 0 && <span>Don't have a category</span>}
                     {recipe.categories.slice(0, 7).map((item, index) => (
@@ -56,7 +56,7 @@ const CardMyRecipes = ({ recipe, isHomePage, isForSale, isRecipePurchase }: Prop
                         </Link>
                     ))}
                 </div>
-                <CardDescription className="flex font-bold text-emerald-800 justify-between">
+                <CardDescription className="flex flex-1 font-bold text-emerald-800 justify-between">
                     <span className="flex items-center"><Clock1 />: {recipe.prepTime} min</span>
                     <span className="flex items-center"><ChefHat />: {recipe.cookTime} min</span>
                     <span className="flex items-center"><Beef />: {recipe.serving}</span>
