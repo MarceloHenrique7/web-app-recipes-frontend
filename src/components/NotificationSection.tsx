@@ -73,14 +73,14 @@ const NotificationSection = () => {
             <Bell className="hover:bg-gray-200 text-emerald-700 rounded"/>
         </Badge>    
         </PopoverTrigger>
-        <PopoverContent >
-            <ScrollArea className="h-96 w-full rounded-md border">
+        <PopoverContent className="mr-6">
+            <ScrollArea className="h-96 w-full bg-gray-100 rounded-md">
                 {myNotifications?.length !== 0 ? myNotifications?.map((notification, index) => (
-                    <CardHeader key={index} className="bg-gray-100 rounded p-5">
+                    <CardHeader key={index} className="flex flex-col flex-1 mb-1 rounded">
                         <CardTitle>
                             {notification.title || ''}
                         </CardTitle>
-                        <CardDescription className="flex flex-col gap-5">
+                        <CardDescription className="flex flex-col gap-2">
                             <span>
                                 {notification.subtitle || ''}
                             </span>
@@ -91,7 +91,6 @@ const NotificationSection = () => {
                         <Button className="p-0 underline self-start text-emerald-700" variant={"ghost"} onClick={() => handleOnClickMessageRead(notification)}>{notification.readByUsers?.includes(currentUser?.id as string) ? 'Read!' : 'Mark as read'}</Button>
                         <Separator/>
                     </CardHeader>
-                    
                 )
                 ) : (
                     <CardHeader>
@@ -104,7 +103,6 @@ const NotificationSection = () => {
                 )}
             </ScrollArea>
 
-            <Separator />
         </PopoverContent>
     </Popover>
     )

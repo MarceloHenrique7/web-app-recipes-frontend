@@ -5,8 +5,8 @@ import MobileNav from './MobileNav';
 const Header = () => {
   return (
     <div className="flex items-center justify-between py-5 px-16 shadow-lg">
-        <Link to="/" className='text-2xl text-emerald-900 font-bold tracking-tight'>
-            Recipes
+        <Link to="/" className='text-2xl text-emerald-600 font-bold tracking-tight'>
+        Chef's Palette
         </Link>
         <div className='md:hidden'>
            <MobileNav />
