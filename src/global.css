@@ -66,11 +66,27 @@
   }
 }
 
+.font-rolling {
+  font-family: 'Rolling Bold'
+}
+.font-montelgo {
+  font-family: 'Montelgo Sans Serif'
+}
+.font-fax-sans {
+  font-family: 'Fax Sans', sans-serif;
+}
+.font-tech-headlines {
+  font-family: 'Tech Headlines', sans-serif;
+}
+.font-code-new-roman {
+  font-family: 'Code New Roman', sans-serif;
+}
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-code-new-roman;
   }
 }

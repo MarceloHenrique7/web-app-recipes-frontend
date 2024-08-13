@@ -41,7 +41,17 @@ const CardMySavedRecipes = ({recipe, isForSale}: Props) => {
             <span >
               {isForSale ? (
                 <span>
-                    ${recipe.price.toFixed(2).replace('.', ',')}
+
+                  {
+                    recipe.price === 0 ? (
+                      <span className="text-green-300">
+                        Free
+                      </span>
+                    ) : (
+                      
+                      `$${recipe.price.toFixed(2).replace('.', ',')}`
+                    )
+                  }
                 </span>
               ):(
                 <span className="text-green-300">

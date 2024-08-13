@@ -118,23 +118,21 @@ const SearchPage = () => {
                     </div>
                 </div>
             </TabsContent>
-            <TabsContent value="buy-recipes">
+            <TabsContent value="buy-recipes" className="flex flex-col gap-10">
                 <div className="flex flex-row justify-between">
                   <SearchResultsInfo total={recipesForSale?.length || 0} recipe={recipe}/>
                   <DropDownOption sortOption={searchState.sortOption} onChange={(value) => setSortOption(value)}/>
                 </div>
-                <div className="flex flex-1 flex-col items-center gap-20">
-                    <div className="w-full self-center grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-                    {
-                      recipesForSale?.length === 0 ? (
-                        <span>No Results</span>
-                      ) : (
-                        recipesForSale?.map((recipe) => (
-                          <CardResultSearch isForSale={true} recipe={recipe}/>
-                        ))
-                      )
-                    }
-                    </div>
+                  <div className="gap-20 self-center grid md:grid-cols-2 lg:grid-cols-2">
+                  {
+                    recipesForSale?.length === 0 ? (
+                      <span>No Results</span>
+                    ) : (
+                      recipesForSale?.map((recipe) => (
+                        <CardResultSearch isForSale={true} recipe={recipe}/>
+                      ))
+                    )
+                  }
                 </div>
             </TabsContent>
 

@@ -10,6 +10,8 @@ import LoadingButton from "./LoadingButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useCreateNotification, useDeleteNotification } from "@/api/NotificationApi";
 import { useEffect, useState } from "react";
+import DetailsRecipeComponent from "./DetailsRecipeComponent";
+import { Separator } from "./ui/separator";
 
 
 type Props = {
@@ -129,8 +131,8 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
     }
 
   return (
-    <Card >
-        <CardHeader className="flex gap-5">
+    <Card className="flex items-center flex-col p-2">
+        <CardHeader className="flex gap-5 w-full">
             <CardTitle className="font-bold flex flex-wrap justify-between text-xl">
             <h1 className="flex flex-wrap">{recipe.name}</h1>
             <span>
@@ -143,7 +145,7 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
                 {recipe.description}
             </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col gap-10 w-full">
+        <CardContent className="flex flex-col w-full gap-12 md:gap-20">
             <div className="flex flex-wrap">
                 {recipe.categories?.map((item, index) => (
                     <Link to={`/search/recipe/category/${item}`} className="hover:underline hover:opacity-80">
@@ -155,70 +157,37 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
 
                 ))}
             </div>
-            <div className="flex gap-5 flex-wrap justify-around">
-                <span>Prep Time: {recipe.prepTime} Min</span>
-                <span>Cook Time: {recipe.cookTime} Min</span>
-                <span>Serving: {recipe.serving} Min</span>
+            <Separator/>
+            <div className="flex flex-col gap-10 p-5">
+                <h1 className="text-gray-900 md:text-center text-3xl font-bold">Utils</h1>
+                <div className="w-full font-bold text-sm grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <span className="md:text-left">Prep Time: {recipe.prepTime} Min</span>
+                    <span className="md:text-center">Cook Time: {recipe.cookTime} Min</span>
+                    <span className="md:text-right">Serving: {recipe.serving} Min</span>
+                </div>
             </div>
-            
-            {!recipeIsPurchased && !recipeIsMine ? (
-                <div>
-                    <h1 className="font-bold bg-gray-800 rounded-full p-3 text-center text-white">
-                        Buy this recipe for more details.
-                    </h1>
-                </div>
-            ) : (
-                <>
-                    <div className="flex flex-col gap-5">
-                    <span className="text-gray-900 text-3xl font-bold">
-                        <h1>Ingredients</h1>
-                    </span>
-                        {recipe.ingredients && recipe.ingredients.map((item, index) => (
-                            <span key={index} className="flex flex-col gap-2 p-5 rounded bg-gray-100 font-bold ">
-                                <span className="text-sm">{index + 1}. {item.name} -  {item.quantity} {item.unit}</span>
-                            </span>
-                        ))}
-                    </div>
-                    <div className="flex flex-col gap-10">
-                        <span className="text-gray-900 text-3xl font-bold">
-                            <h1>Instructions</h1>
-                    </span>
-                    {recipe.instructions && recipe.instructions.map((item, index) => (
-                    <div className="flex flex-col font-bold gap-4 bg-gray-100 bg-opacity-50 rounded p-5">
-                        <span className="opacity-80 text-emerald-800">STEP {index+1}</span>
-                        <span key={index} className="flex flex-col items-center">
-                            <span className="text-2xl text-center">{item.title}</span>
-                            <span className="text-sm opacity-80">{item.subtitle}</span>
-                        </span>
-                            <span className="opacity-80">{item.description}</span>
-                    </div>
 
-                    ))}
-                </div>
-                    <div className="flex flex-col items-center gap-5 px-10">
-                        <span className="text-gray-900 text-3xl font-bold">
-                            <h1>Nutrients</h1>
-                        </span>
-                        {recipe.nutrients?.map((item, index) => (
-                        <div key={index} className="w-full font-bold flex flex-col items-center gap-5 justify-center gap-2">
-                            <div className="w-full flex justify-between">
-                                <span>Calories: {item.calories}</span>
-                                <span>Carbohydrate: {item.carbohydrate}</span>
-                            </div>
-                            <div className="w-full flex justify-between">
-                                <span>Protein: {item.protein}</span>
-                                <span>Fat: {item.fat}</span>
-                            </div>
-                        </div>
-                    ))}
+            
+            {
+            isForSale ? (
+                !recipeIsPurchased && !recipeIsMine ?  (
+                    <div>
+                        <h1 className="font-bold bg-gray-800 rounded-full p-3 text-center text-white">
+                            Buy this recipe for more details.
+                        </h1>
                     </div>
-                </>
+                ) : (
+                    <DetailsRecipeComponent recipe={recipe}/>
+                )
+            ) : (
+                <DetailsRecipeComponent recipe={recipe}/>
             )
+            
         }
 
             {
-                isForSale ? (
-                    isAuthenticated ? (
+                isAuthenticated ? (
+                    isForSale ? (
                         <CardFooter className="gap-2 mt-20">  
                             <span className=" flex flex-wrap gap-2">
                                 <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white font-bold hover:bg-emerald-900" onClick={() => handleWithSaveOnClick(recipe.id, currentUser?.id as string)}><i className={`bi bi-lg ${messageSaveChange === 'SAVE' ? 'bi-bookmark' : 'bi-bookmark-fill'}`} ></i>{messageSaveChange}</span>
@@ -243,10 +212,10 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
                             </span>
                         </CardFooter>
                     ) : (
-                        <Button className="self-start bg-emerald-900 font-bold hover:bg-emerald-700 transition-all ease-in-out" onClick={onLogin}>Make Log In for buy this recipe</Button>
+                        <span className="flex cursor-pointer gap-2 bg-emerald-900 p-2 rounded-md text-white self-start font-bold hover:bg-emerald-700 transition-all ease-in-out" onClick={() => handleWithSaveOnClick(recipe.id, currentUser?.id as string)}><i className={`${messageSaveChange === 'SAVE' ? 'bi-bookmark' : 'bi-bookmark-fill'}`}></i>{messageSaveChange}</span>
                     )
                 ) : (
-                    <span className="flex cursor-pointer gap-2 bg-emerald-900 p-2 rounded-md text-white self-start font-bold hover:bg-emerald-700 transition-all ease-in-out" onClick={() => handleWithSaveOnClick(recipe.id, currentUser?.id as string)}><i className={`${messageSaveChange === 'SAVE' ? 'bi-bookmark' : 'bi-bookmark-fill'}`}></i>{messageSaveChange}</span>
+                    <Button className="self-start bg-emerald-900 font-bold hover:bg-emerald-700 transition-all ease-in-out" onClick={onLogin}>Make Log In now</Button>
                 )
                 
             }

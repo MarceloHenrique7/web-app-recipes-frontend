@@ -14,14 +14,14 @@ const CardResultSearch = ({ recipe, isForSale }: Props) => {
 
 
   return (
-    <Link to={`/details/${recipe.id}`}>
-        <Card className="h-full w-full flex flex-col justify-between">
+    <Link to={`/details/${recipe.id}`} className="transition ease-in-out duration-300 hover:shadow-lg">
+        <Card className="h-full w-full md:max-w-[600px] flex flex-col justify-between">
             <AspectRatio ratio={16/9}>
                 <img src={recipe.imageUrl} className="rounded object-cover w-full h-full"/>
             </AspectRatio>
-            <CardHeader className="flex flex-1">
+            <CardHeader className="flex flex-1 w-full">
                 <CardTitle className="flex flex-wrap justify-between">
-                    {recipe.name}
+                    {recipe.name.substring(0, 20)}...
                     <span>
                         {isForSale && (
                         `$ ${recipe.price.toFixed(2).replace('.', ',')}`
