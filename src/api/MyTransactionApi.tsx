@@ -1,6 +1,7 @@
 import { Transaction } from "@/types";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
@@ -10,7 +11,7 @@ interface IBodyProps extends Omit<Transaction, "id"> {  }
 export const useCreateMyTransaction = () => {
 
     const { getAccessTokenSilently } = useAuth0()
-
+    const navigate = useNavigate()
 
     const createMyTransaction = async ( transactionForm: IBodyProps): Promise<Transaction> => {
         console.log(transactionForm)
@@ -29,7 +30,9 @@ export const useCreateMyTransaction = () => {
             throw new Error(errorResponse.message || "Fetch request is BAD")
         }
 
-        return response.json()
+        const data = await response.json()
+        navigate(`/transaction-status/${data.recipeId}`)
+        return data
     }
 
     const { mutate: createTransaction, isLoading } = useMutation(createMyTransaction, {

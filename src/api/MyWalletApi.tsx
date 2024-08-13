@@ -63,20 +63,21 @@ export  const useUpdatedMyWallet = () => {
             body: JSON.stringify(dataForm)
         })
 
-        if (!response) {
-            throw new Error('Unable get Wallet')
+        if (!response.ok) {
+            throw new Error("the operation failed")
         }
 
         return response.json()
     }
 
-    const { mutate: update, isLoading, isSuccess, error, reset } = useMutation(updateMyWallet)
+    const { mutateAsync: update, isLoading, isSuccess, error, reset } = useMutation(updateMyWallet)
 
     if (isSuccess) {
         toast.success('Operation success')
     }
+
     if (error) {
-        toast.error('The operation failed')
+        toast.error(error.toString())
         reset()
     }
 

@@ -42,7 +42,7 @@ const CheckoutWalletPage = () => {
             currency: "usd",
             transactionType: TransactionType.PURCHASE,
             recipientUserId: recipe?.userId,
-            direction: "OUTBOUND",
+            direction: ""
         })
     }
 

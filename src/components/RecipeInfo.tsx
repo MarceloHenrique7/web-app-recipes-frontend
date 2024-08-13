@@ -224,7 +224,7 @@ const RecipeInfo = ({ recipe, isForSale }: Props) => {
                                 <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white font-bold hover:bg-emerald-900" onClick={() => handleWithSaveOnClick(recipe.id, currentUser?.id as string)}><i className={`bi bi-lg ${messageSaveChange === 'SAVE' ? 'bi-bookmark' : 'bi-bookmark-fill'}`} ></i>{messageSaveChange}</span>
                                 <Dialog>
                                     <DialogTrigger>
-                                        <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white font-bold hover:bg-emerald-900"><ShoppingCart />Buy this Recipe</span>
+                                        <span className="flex cursor-pointer gap-2 bg-emerald-600 p-2 rounded-md text-white font-bold hover:bg-emerald-900"><ShoppingCart />Buy Recipe</span>
                                     </DialogTrigger>
                                     <DialogContent className="max-w-[350px] rounded-md">
                                         <DialogTitle className="font-bold text-2xl mb-8">
